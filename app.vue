@@ -3,9 +3,9 @@ import { myriad } from "@myriadjs/core";
 import "./css/styles.css";
 
 const theme = myriad({
-  foreground: "#1c0303",
-  background: "#1c0303",
-  accents: ["#761adf"],
+  foreground: "#dcffda",
+  background: "#0e0110",
+  accents: ["#ffb958"],
 }).attach();
 </script>
 
