@@ -23,19 +23,19 @@ const from = ref<HTMLElement | null>()
 .markerbox {
   z-index: 3;
   position: relative;
-  border-radius: var(--radius);
-  background: var(--background);
-  color: var(--foreground);
 }
 
 .content {
   z-index: 10;
   position: relative;
-  padding: var(--space-s);
   width: 250px;
+  padding: var(--space-s);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--foreground);
 }
 
-.line {
-  /* position: relative; */
+svg, .dot {
+  position: relative;
 }
 </style>

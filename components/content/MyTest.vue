@@ -5,6 +5,8 @@ const chip = ref<HTMLElement | null>(null)
 const title = ref<HTMLElement | null>(null)
 const caption = ref<HTMLElement | null>(null)
 const content = ref<HTMLElement | null>(null)
+const span = ref<HTMLElement | null>(null)
+
 </script>
 
 <template>
@@ -12,21 +14,27 @@ const content = ref<HTMLElement | null>(null)
     <div class="markers">
       <MarkerBox 
         :to="() => header" 
-        :offset="[80, 0, -70, 0]"
+        :offset="[100, 0, -70, 0]"
       >
-        --foreground-10
+        --background-20
       </MarkerBox>
       <MarkerBox 
         :to="() => title" 
-        :offset="[80, 0, -95, -50]"
+        :offset="[100, 0, -95, -50]"
       >
         --foreground
       </MarkerBox>
       <MarkerBox 
         :to="() => caption" 
-        :offset="[80, 0, -95, 0]"
+        :offset="[100, 0, -95, 0]"
       >
         --foreground-20
+      </MarkerBox>
+      <MarkerBox 
+        :to="() => content" 
+        :offset="[100, 0, -95, 0]"
+      >
+        --background
       </MarkerBox>
     </div>
     <div class="card">
@@ -41,21 +49,27 @@ const content = ref<HTMLElement | null>(null)
       <div ref="content" class="content">
         <h1 ref="title">Title</h1>
         <p ref="caption" class="caption">2 months ago</p>
-        <p>Lorem ipsum dolor sit amet consectetur <span>adipisicing</span> elit. Quos in cum ea eum nulla sit, repellendus optio quidem obcaecati perferendis similique dolor reiciendis repudiandae doloremque omnis saepe sapiente nostrum iusto!</p>
+        <p>Lorem ipsum dolor sit amet consectetur <span ref="span">adipisicing</span> elit. Quos in cum ea eum nulla sit, repellendus optio quidem obcaecati perferendis similique dolor reiciendis repudiandae doloremque omnis saepe sapiente nostrum iusto!</p>
       </div>
     </div>
     <div class="markers">
       <MarkerBox 
-        :to="() => tag" 
-        :offset="[-410, 0, 80, -20]"
+        :to="() => chip" 
+        :offset="[-100, 0, 70, -50]"
       >
-        --accent
+        --accent-20
       </MarkerBox>
       <MarkerBox 
         :to="() => tag" 
-        :offset="[-410, 0, 30, 20]"
+        :offset="[-100, 0, 30, 20]"
       >
         --accent-contrast
+      </MarkerBox>
+      <MarkerBox 
+        :to="() => span" 
+        :offset="[-100, 0, 80, -20]"
+      >
+        --accent
       </MarkerBox>
     </div>
   </div>
@@ -81,7 +95,6 @@ const content = ref<HTMLElement | null>(null)
 .card {
   width: 300px;
   border-radius: var(--radius);
-  border: solid 2px var(--foreground-20);
 }
 
 .card .header {

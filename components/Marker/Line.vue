@@ -14,7 +14,8 @@ const props = defineProps<{
 
 const line = ref<SVGElement>()
 
-function cordinates(rect?: DOMRect): Point {
+function getCenter(rect?: DOMRect): Point {
+  //get center of element
   if(!rect) return [0, 0]
   return [
     rect.x + rect.width / 2, 
@@ -39,14 +40,12 @@ const distance = computed(() => {
   return Math.hypot(from.value[0] - to.value[0], from.value[1] - to.value[1])
 })
 
-function offset(distance: number, room?: number) {
+function percentOffset(percentage: number, room?: number) {
   if(!room) return 0
-  return percentOf(distance, room / 2)
-}
-
-function percentOf(range: number, percentage: number) {
+  const range = room / 2
   const decimal = percentage / 100;
   return decimal * range;
+  
 }
 
 onMounted(() => {
@@ -64,11 +63,11 @@ onMounted(() => {
   }
 
   function setPoint(rect?: DOMRect , off: Point = [0, 0]): Point {
-    const cords = cordinates(rect)
+    const center = getCenter(rect)
     const offsetValue = getOffset(off)
     return [
-      normalized[0] + cords[0] + offset(offsetValue[0], rect?.width),
-      normalized[1] + cords[1] + offset(offsetValue[1], rect?.height)
+      normalized[0] + center[0] + percentOffset(offsetValue[0], rect?.width),
+      normalized[1] + center[1] + percentOffset(offsetValue[1], rect?.height)
     ]
   }
 
@@ -84,13 +83,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="line">
-    <MarkerDot :point="from" :size="4" />
-    <MarkerDot :point="to" :size="4" />
-    <svg ref="line" :viewBox="`0 0 ${distance} 100`" xmlns="http://www.w3.org/2000/svg">
-      <path :d="`M 0 50 L ${distance} 50`" :stroke="color" :stroke-width="stroke" />
-    </svg>
-  </div>
+  <MarkerDot :point="from" :size="4" />
+  <MarkerDot :point="to" :size="4" />
+  <svg ref="line" :viewBox="`0 0 ${distance} 100`" xmlns="http://www.w3.org/2000/svg">
+    <path :d="`M 0 50 L ${distance} 50`" :stroke="color" :stroke-width="stroke" />
+  </svg>
 </template>
 
 <style scoped>
