@@ -1,5 +1,8 @@
 <script setup lang="ts">
-defineProps<{to: () => HTMLElement | null | undefined}>()
+defineProps<{
+  to: () => HTMLElement | null | undefined, 
+  offset?: [number, number, number, number] | [number, number]
+}>()
 const from = ref<HTMLElement | null>()
 </script>
 
@@ -11,20 +14,28 @@ const from = ref<HTMLElement | null>()
     <MarkerLine
       :to="to"
       :from="() => from"
-      :offset="[80, 0, -70, 0]"
+      :offset="offset"
     />
   </div>
 </template>
 
 <style scoped>
+.markerbox {
+  z-index: 3;
+  position: relative;
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--foreground);
+}
+
 .content {
+  z-index: 10;
+  position: relative;
   padding: var(--space-s);
   width: 250px;
 }
 
-.markerbox {
-  position: relative;
-  border-radius: var(--radius);
-  background: var(--background);
+.line {
+  /* position: relative; */
 }
 </style>

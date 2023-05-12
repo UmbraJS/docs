@@ -44,16 +44,14 @@ function offset(distance: number, room?: number) {
   return percentOf(distance, room / 2)
 }
 
-function percentOf(value: number, percent: number) {
-  return value * (percent / 100)
+function percentOf(range: number, percentage: number) {
+  const decimal = percentage / 100;
+  return decimal * range;
 }
 
 onMounted(() => {
   const fromRect = props.from()?.getClientRects()[0]
-  const fromCords = cordinates(fromRect)
-
   const toRect = props.to()?.getClientRects()[0]
-  const toCords = cordinates(toRect)
   
   const normalized = [
     fromRect ? -fromRect.x : 0,
@@ -65,11 +63,12 @@ onMounted(() => {
     return offset
   }
 
-  function setPoint(cords: Point, off: Point = [0, 0]): Point {
+  function setPoint(rect?: DOMRect , off: Point = [0, 0]): Point {
+    const cords = cordinates(rect)
     const offsetValue = getOffset(off)
     return [
-      normalized[0] + cords[0] + offset(offsetValue[0], toRect?.width),
-      normalized[1] + cords[1] + offset(offsetValue[1], toRect?.height)
+      normalized[0] + cords[0] + offset(offsetValue[0], rect?.width),
+      normalized[1] + cords[1] + offset(offsetValue[1], rect?.height)
     ]
   }
 
@@ -79,17 +78,19 @@ onMounted(() => {
     return off.length === 4 ? [off[x], off[y]] : off
   }
 
-  from.value = setPoint(fromCords, passedOffset(0, 1))
-  to.value = setPoint(toCords, passedOffset(2, 3))
+  from.value = setPoint(fromRect, passedOffset(0, 1))
+  to.value = setPoint(toRect, passedOffset(2, 3))
 })
 </script>
 
 <template>
-  <MarkerDot :point="from" :size="10" />
-  <MarkerDot :point="to" :size="10" />
-  <svg ref="line" :viewBox="`0 0 ${distance} 100`" xmlns="http://www.w3.org/2000/svg">
-    <path :d="`M 0 50 L ${distance} 50`" :stroke="color" :stroke-width="stroke" />
-  </svg>
+  <div class="line">
+    <MarkerDot :point="from" :size="4" />
+    <MarkerDot :point="to" :size="4" />
+    <svg ref="line" :viewBox="`0 0 ${distance} 100`" xmlns="http://www.w3.org/2000/svg">
+      <path :d="`M 0 50 L ${distance} 50`" :stroke="color" :stroke-width="stroke" />
+    </svg>
+  </div>
 </template>
 
 <style scoped>

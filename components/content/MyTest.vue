@@ -1,46 +1,81 @@
 <script setup lang="ts">
-const to = ref<HTMLElement | null>(null)
+const header = ref<HTMLElement | null>(null)
+const tag = ref<HTMLElement | null>(null)
+const chip = ref<HTMLElement | null>(null)
+const title = ref<HTMLElement | null>(null)
+const caption = ref<HTMLElement | null>(null)
+const content = ref<HTMLElement | null>(null)
 </script>
 
 <template>
   <div class="wrapper">
+    <div class="markers">
+      <MarkerBox 
+        :to="() => header" 
+        :offset="[80, 0, -70, 0]"
+      >
+        --foreground-10
+      </MarkerBox>
+      <MarkerBox 
+        :to="() => title" 
+        :offset="[80, 0, -95, -50]"
+      >
+        --foreground
+      </MarkerBox>
+      <MarkerBox 
+        :to="() => caption" 
+        :offset="[80, 0, -95, 0]"
+      >
+        --foreground-20
+      </MarkerBox>
+    </div>
     <div class="card">
-      <div ref="to" class="header">
-        <MarkerBox class="marker-bg20" :to="() => to">
-          --foreground-20
-        </MarkerBox>
-        <div class="tag">
+      <div ref="header" class="header">
+        <div ref="tag" class="tag">
           <p>A</p>
         </div>
-        <div class="tag chip">
+        <div ref="chip" class="tag chip">
           <p>chip</p>
         </div>
       </div>
-      <div class="content">
-        <h1>Title</h1>
-        <p class="caption">2 months ago</p>
+      <div ref="content" class="content">
+        <h1 ref="title">Title</h1>
+        <p ref="caption" class="caption">2 months ago</p>
         <p>Lorem ipsum dolor sit amet consectetur <span>adipisicing</span> elit. Quos in cum ea eum nulla sit, repellendus optio quidem obcaecati perferendis similique dolor reiciendis repudiandae doloremque omnis saepe sapiente nostrum iusto!</p>
       </div>
-      <div class="footer" /> 
+    </div>
+    <div class="markers">
+      <MarkerBox 
+        :to="() => tag" 
+        :offset="[-410, 0, 80, -20]"
+      >
+        --accent
+      </MarkerBox>
+      <MarkerBox 
+        :to="() => tag" 
+        :offset="[-410, 0, 30, 20]"
+      >
+        --accent-contrast
+      </MarkerBox>
     </div>
   </div>
 </template>
 
 <style scoped>
-.marker-bg20 {
-  position: absolute;
-  left: -300px;
-  top: 0px;
-}
-
 .wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: var(--space-xl);
   border-radius: var(--radius);
   padding: 1rem;
   background: var(--background-10);
   margin-bottom: var(--space-xl);
+}
+
+.markers { 
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
 }
 
 .card {
