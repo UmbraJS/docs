@@ -8,6 +8,8 @@
 type Point = [number, number]
 const props = defineProps<{
   offset?: Point | [number, number, number, number]
+  from: () => HTMLElement | null | undefined,
+  to: () => HTMLElement | null | undefined
 }>()
 
 const line = ref<SVGElement>()
@@ -47,10 +49,10 @@ function percentOf(value: number, percent: number) {
 }
 
 onMounted(() => {
-  const fromRect = document.querySelector('[data-from]')?.getClientRects()[0]
+  const fromRect = props.from()?.getClientRects()[0]
   const fromCords = cordinates(fromRect)
 
-  const toRect = document.querySelector('[data-to]')?.getClientRects()[0]
+  const toRect = props.to()?.getClientRects()[0]
   const toCords = cordinates(toRect)
   
   const normalized = [
@@ -83,8 +85,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <MarkerDot :point="from" />
-  <MarkerDot :point="to" />
+  <MarkerDot :point="from" :size="10" />
+  <MarkerDot :point="to" :size="10" />
   <svg ref="line" :viewBox="`0 0 ${distance} 100`" xmlns="http://www.w3.org/2000/svg">
     <path :d="`M 0 50 L ${distance} 50`" :stroke="color" :stroke-width="stroke" />
   </svg>

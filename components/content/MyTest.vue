@@ -1,13 +1,13 @@
 <script setup lang="ts">
+const to = ref<HTMLElement | null>(null)
 </script>
 
 <template>
   <div class="wrapper">
     <div class="card">
-      <div class="header" data-to>
-        <MarkerBox ref="from" class="marker-bg20">
-          --background-20
-          <MarkerLine :offset="[80, 0, -70, 0]" />
+      <div ref="to" class="header">
+        <MarkerBox class="marker-bg20" :to="() => to">
+          --foreground-20
         </MarkerBox>
         <div class="tag">
           <p>A</p>

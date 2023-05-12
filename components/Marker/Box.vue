@@ -1,38 +1,30 @@
 <script setup lang="ts">
-const wrapper = ref<HTMLElement>()
+defineProps<{to: () => HTMLElement | null | undefined}>()
+const from = ref<HTMLElement | null>()
 </script>
 
 <template>
-  <div ref="wrapper" class="markerbox" data-from>
-    <div class="content"><slot /></div>
-    <div class="layer" />
+  <div ref="from" class="markerbox">
+    <div class="content">
+      <slot />
+    </div>
+    <MarkerLine
+      :to="to"
+      :from="() => from"
+      :offset="[80, 0, -70, 0]"
+    />
   </div>
 </template>
 
 <style scoped>
+.content {
+  padding: var(--space-s);
+  width: 250px;
+}
+
 .markerbox {
   position: relative;
   border-radius: var(--radius);
   background: var(--background);
-  width: 250px;
-}
-
-.content {
-  position: relative;
-  padding: var(--space-s);
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.layer {
-  background: var(--background);
-  position: absolute;
-  top: 0; left: 0;
-  border-radius: var(--radius);
-  width: 100%;
-  height: 100%;
-  z-index: 1;
 }
 </style>
