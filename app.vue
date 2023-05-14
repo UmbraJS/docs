@@ -32,6 +32,16 @@ html {
   --color-primary-400: var(--accent) !important;
 }
 
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 0.8;
+}
+
+p {
+  max-width: 75ch;
+}
+
 h1, h2, h3, h4, p, a, a .title, button, body {
   color: var(--foreground) !important;
 }

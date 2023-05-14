@@ -157,12 +157,6 @@ const span = ref<HTMLElement | null>(null)
   color: var(--foreground-20) !important;
 }
 
-.content h1 {
-  font-size: 32px;
-  font-weight: bold;
-  line-height: 0.8;
-}
-
 p span {
   color: var(--accent);
 }
