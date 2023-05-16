@@ -20,7 +20,6 @@
   background: var(--background);
   border-radius: var(--radius);
   overflow: hidden;
-  max-width: 500px;
 }
 
 .header {

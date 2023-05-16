@@ -75,7 +75,7 @@ const span = ref<HTMLElement | null>(null)
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .wrapper {
   display: flex;
   justify-content: center;
@@ -84,6 +84,9 @@ const span = ref<HTMLElement | null>(null)
   padding: 1rem;
   background: var(--background-10);
   margin-bottom: var(--space-xl);
+  @media only screen and (max-width: 1100px) {
+    display: none;
+  }
 }
 
 .markers { 
