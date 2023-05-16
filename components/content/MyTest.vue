@@ -160,6 +160,20 @@ const span = ref<HTMLElement | null>(null)
   color: var(--foreground-20) !important;
 }
 
+/* .content h1 {
+  background-color: var(--foreground);
+  border-radius: var(--radius);
+  max-width: max-content;
+  overflow: hidden;
+}
+
+.content .caption {
+  background-color: var(--foreground-20);
+  border-radius: var(--radius);
+  max-width: max-content;
+  overflow: hidden;
+} */
+
 p span {
   color: var(--accent);
 }

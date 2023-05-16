@@ -21,6 +21,24 @@
         <p>- foreground</p>
       </div>
     </div>
+    <div class="range">
+      <div class="background">
+        <div class="square" style="background: var(--background)" />
+        <p></p>
+        <div class="square" style="background: var(--background-10)" />
+        <p></p>
+        <div class="square" style="background: var(--background-20)" />
+        <p></p>
+      </div>
+      <div class="accents">
+        <div class="square" style="background: var(--accent-20)" />
+        <p>- accent-20</p>
+        <div class="square" style="background: var(--accent-10)" />
+        <p>- accent-10</p>
+        <div class="square" style="background: var(--accent)" />
+        <p>- accent</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,8 +58,13 @@
   overflow: hidden;
 }
 
+.range .background {
+  border-bottom: solid 2px var(--foreground-20);
+}
+
 .range .background,
-.range .foreground {
+.range .foreground,
+.range .accents {
   display: grid;
   column-gap: var(--space-s);
   grid-template-columns: auto 1fr;
@@ -51,7 +74,8 @@
 }
 
 .range .background p:nth-of-type(1),
-.range .foreground p:nth-last-of-type(1) {
+.range .foreground p:nth-last-of-type(1),
+.range .accents p:nth-last-of-type(1) {
   color: var(--foreground) !important;
 }
 
@@ -60,7 +84,8 @@
   border-top-left-radius: var(--radius);
 }
 
-.range .foreground .square:nth-last-of-type(1) {
+.range .foreground .square:nth-last-of-type(1),
+.range .accents .square:nth-last-of-type(1) {
   border-bottom-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
 }

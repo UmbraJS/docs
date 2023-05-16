@@ -46,7 +46,7 @@
     display: flex;
     flex-direction: column;
     .range {
-      margin-bottom: var(--space-xl);
+      margin-bottom: var(--space-l);
     }
   }
 }
