@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { myriad } from "@myriadjs/core";
-import "./css/styles.css";
-
-const theme = myriad({
+import "./css/styles.css"
+myriad({
   foreground: "#dcffda",
   background: "#0e0110",
   accents: ["#ffb958"],
-}).attach();
+}).attach()
 </script>
 
 <template>
