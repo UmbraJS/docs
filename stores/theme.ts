@@ -1,4 +1,4 @@
-import { myriad, Myriad } from "@myriadjs/core";
+import { myriad, MyriadInput, MyriadSettings } from "@myriadjs/core";
 
 export const useTheme = defineStore('theme', () => {
   const scheme = ref(myriad({
@@ -7,8 +7,15 @@ export const useTheme = defineStore('theme', () => {
     accents: ["#ffb958"],
   }).colors.origin)
 
-  function setScheme(theme: Myriad) {
-    scheme.value = theme;
+  const settings: MyriadSettings = {
+    readability: 2,
+  }
+
+  function setScheme(theme: MyriadInput) {
+    scheme.value = myriad({
+      ...scheme.value,
+      ...theme
+    }, settings).attach().colors.origin;
   }
 
   return { scheme, setScheme }

@@ -48,7 +48,7 @@
   justify-content: center;
   gap: var(--space-xl);
   border-radius: var(--radius);
-  padding: 1rem;
+  padding: var(--space-xl);
   background: var(--background-10);
   margin-bottom: var(--space-xl);
 }

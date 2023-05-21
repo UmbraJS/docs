@@ -1,52 +1,52 @@
 <script setup>
-import { myriad } from "@myriadjs/core";
 import { DyePicker } from '@myriadjs/dye';
 import "@myriadjs/dye/dist/style.css"
 
 const theme = useTheme()
 
 function handleChange(color, name) {
-  const test = {
-    ...theme.scheme,
-    [name]: name === "accents" ? [color.value] :color.value
-  }
-  theme.setScheme(test)
-  myriad(test).attach()
+  const hexColor = color.value.toHexString()
+  theme.setScheme({[name]: name === "accents"
+    ? [hexColor]
+    : hexColor
+  })
 }
 </script>
 
 <template>
   <div class="theme">
     <div class="picker">
-      <h1>Background</h1>
       <DyePicker
         :default="theme.scheme.background"
         @change="(color) => handleChange(color, 'background')"
       />
+      <h1>Background</h1>
     </div>
 
     <div class="picker">
-      <h1>Foreground</h1>
       <DyePicker
         :default="theme.scheme.foreground"
         @change="(color) => handleChange(color, 'foreground')"
       />
+      <h1>Foreground</h1>
     </div>
 
     <div class="picker">
-      <h1>Accent</h1>
       <DyePicker
         :default="theme.scheme.accents[0]"
         @change="(color) => handleChange(color, 'accents')"
       />
+      <h1>Accent</h1>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .theme {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
+
   border-radius: var(--radius);
   padding: var(--space-xl);
   background: var(--background-10);
@@ -55,8 +55,8 @@ function handleChange(color, name) {
 
 .theme .picker {
   display: flex;
-  flex-direction: column;
   gap: var(--space);
+  align-items: center;
   & > .dyepicker-wrapper {
     border: 1px solid var(--background-10);
     border-radius: var(--radius);

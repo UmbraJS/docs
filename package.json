@@ -11,14 +11,14 @@
   },
   "devDependencies": {
     "@nuxt-themes/docus": "^1.9.0",
-    "@nuxt/devtools": "^0.4.6",
+    "@nuxt/devtools": "^0.5.0",
     "@nuxt/eslint-config": "^0.1.1",
     "eslint": "^8.35.0",
     "nuxt": "^3.4.3"
   },
   "dependencies": {
-    "@myriadjs/core": "^0.0.83",
-    "@myriadjs/dye": "^0.0.5",
+    "@myriadjs/core": "^0.0.86",
+    "@myriadjs/dye": "^0.0.698",
     "@pinia/nuxt": "^0.4.11",
     "pinia": "^2.1.3",
     "sass": "^1.62.1"
