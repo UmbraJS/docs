@@ -8,7 +8,7 @@ export const useTheme = defineStore('theme', () => {
   }).colors.origin)
 
   const settings: MyriadSettings = {
-    readability: 4,
+    readability: 2,
   }
 
   function setScheme(theme: MyriadInput) {

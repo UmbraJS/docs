@@ -1,8 +1,20 @@
+<script setup>
+import { DyePicker } from '@myriadjs/dye';
+import "@myriadjs/dye/dist/style.css"
+
+const theme = useTheme()
+
+function handleChange(color, name) {
+  const hexColor = color.value.toHexString()
+  theme.setScheme({[name]: name === "accents"
+    ? [hexColor]
+    : hexColor
+  })
+}
+</script>
+
 <template>
   <div class="theme">
-<<<<<<< Updated upstream
-    
-=======
     <div class="controls" v-if="false">
       <Slider />
     </div>
@@ -30,10 +42,31 @@
       />
       <h1>Accent</h1>
     </div>
->>>>>>> Stashed changes
+
   </div>
 </template>
 
 <style scoped lang="scss">
+.theme {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
 
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  background: var(--background-10);
+  margin-bottom: var(--space-xl);
+}
+
+.theme .picker {
+  display: flex;
+  gap: var(--space);
+  align-items: center;
+  & > .dyepicker-wrapper {
+    border: 1px solid var(--background-10);
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 300px;
+  }
+}
 </style>
