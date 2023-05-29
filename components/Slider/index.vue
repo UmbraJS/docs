@@ -1,9 +1,4 @@
 <script setup>
-// const { min = 0, max = 100 } = defineProps<{
-//   min: number,
-//   max: number
-// }>()
-
 const slider = ref(50)
 </script>
 
@@ -31,7 +26,11 @@ const slider = ref(50)
   align-items: center;
 
   --size: var(--block, 25px);
-  --trackSize: calc(var(--size) / 2);
+  --trackSize: calc(var(--size) / 4);
+  --trackColor: var(--accent-20);
+  --rangeColor: var(--accent-10);
+  --thumbColor: var(--accent);
+
   --padding: var(--space-xs);
   --inner: calc(var(--size) - var(--padding));
 
@@ -43,8 +42,8 @@ const slider = ref(50)
   content: "";
   position: absolute;
   width: 100%;
-  height: 5px;
-  background-color: var(--foreground-20);
+  height: var(--trackSize);
+  background-color: var(--trackColor);
   border-radius: var(--radius);
 }
 
@@ -57,7 +56,7 @@ const slider = ref(50)
 
 .slider .track {
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
   display: flex;
   align-items: center;
   pointer-events: none;
@@ -68,9 +67,4 @@ const slider = ref(50)
   //background: var(--background-20);
   //border-radius: var(--radius);
 }
-
-/* .slider:has(input:focus) .track {
-  outline: var(--border-focus);
-  border-radius: 50px;
-} */
 </style>

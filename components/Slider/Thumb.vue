@@ -19,7 +19,7 @@ defineProps({
 .line {
   width: 0.1em;
   height: 80%;
-  background: var(--foreground);
+  background: var(--thumbLineColor, var(--thumbColor));
 }
 
 .ball {
@@ -29,9 +29,10 @@ defineProps({
 
   height: 100%;
   aspect-ratio: 1/1;
-  background-color: var(--foreground);
+  background-color: var(--thumbColor);
   border-radius: 100%;
-  //opacity: 0.4;
+  outline: solid 0px var(--accent-20);
+  transition: outline 0.05s;
 }
 
 .slider .track .thumb {
@@ -55,5 +56,13 @@ defineProps({
   width: 50%;
   height: var(--trackSize, 5px);
   background-color: var(--foreground-10);
+}
+
+.slider:has(input:focus) .track .thumb .ball {
+  outline: solid 5px var(--accent-20);
+}
+
+.slider:has(input:active) .track .thumb .ball {
+  outline: solid 10px var(--accent-20);
 }
 </style>
