@@ -1,12 +1,3 @@
-<script setup>
-defineProps({
-  offset: {
-    type: String,
-    default: '50%'
-  }
-})
-</script>
-
 <template>
   <div class="thumb">
     <div class="ball">
@@ -45,7 +36,7 @@ defineProps({
   --tumbSize: var(--size, 25px);
   height: 100%;
   aspect-ratio: 1/1;
-  transform: translateX(calc(var(--tumbSize) - v-bind(offset)));
+  transform: translateX(calc(var(--tumbSize) - 50%));
 }
 
 .slider .track .thumb::after {

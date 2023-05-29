@@ -11,20 +11,35 @@ function handleChange(color, name) {
     : hexColor
   })
 }
+
+const readability = ref(0)
+
+// const readability = computed({
+//   get: () => theme.scheme.readability,
+//   set: (value) => theme.setScheme({readability: value})
+// })
 </script>
 
 <template>
   <div class="theme">
     <div class="controls" v-if="true">
-      <Slider />
+      <h1>Readability</h1>
+      <Slider v-model="readability">
+        <!-- <SliderInput
+          v-model="value"
+          :min="0" 
+          :max="100"
+        /> -->
+      </Slider>
     </div>
 
+    <h1>Colors</h1>
     <div class="picker">
       <DyePicker
         :default="theme.scheme.background"
         @change="(color) => handleChange(color, 'background')"
       />
-      <h1>Background</h1>
+      <p>Background</p>
     </div>
 
     <div class="picker">
@@ -32,7 +47,7 @@ function handleChange(color, name) {
         :default="theme.scheme.foreground"
         @change="(color) => handleChange(color, 'foreground')"
       />
-      <h1>Foreground</h1>
+      <p>Foreground</p>
     </div>
 
     <div class="picker">
@@ -40,13 +55,19 @@ function handleChange(color, name) {
         :default="theme.scheme.accents[0]"
         @change="(color) => handleChange(color, 'accents')"
       />
-      <h1>Accent</h1>
+      <p>Accent</p>
     </div>
 
   </div>
 </template>
 
 <style scoped lang="scss">
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
+}
+
 .theme {
   display: flex;
   flex-direction: column;

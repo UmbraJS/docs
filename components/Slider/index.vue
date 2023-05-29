@@ -1,17 +1,17 @@
-<script setup>
-const slider = ref(50)
+<script setup lang="ts">
+const value = defineModel<number>()
 </script>
 
 <template>
   <div class="slider">
     <SliderInput
-      v-model="slider"
+      v-model="value"
       :min="0" 
       :max="100"
     />
     <div class="track">
-      <SliderRange :percentage="slider">
-        <SliderThumb :offset="percentage" />
+      <SliderRange :percentage="value">
+        <SliderThumb />
       </SliderRange>
     </div>
   </div>
