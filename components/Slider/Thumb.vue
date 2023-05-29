@@ -29,8 +29,9 @@ defineProps({
 
   height: 100%;
   aspect-ratio: 1/1;
-  background-color: var(--accent);
-  border-radius: var(--radius);
+  background-color: var(--foreground);
+  border-radius: 100%;
+  //opacity: 0.4;
 }
 
 .slider .track .thumb {
@@ -53,6 +54,6 @@ defineProps({
   left: 0;
   width: 50%;
   height: var(--trackSize, 5px);
-  background-color: var(--foreground-20);
+  background-color: var(--foreground-10);
 }
 </style>

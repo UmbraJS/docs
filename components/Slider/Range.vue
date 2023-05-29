@@ -49,10 +49,11 @@ const capTrick = computed(() => {
 
   width: 100%;
   height: var(--trackSize, 5px);
-  background-color: var(--foreground-20);
+  background-color: var(--foreground-10);
 
   border-top-right-radius: v-bind(capTrick);
   border-bottom-right-radius: v-bind(capTrick);
+  
   border-top-left-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
 }

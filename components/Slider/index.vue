@@ -34,10 +34,18 @@ const slider = ref(50)
   --trackSize: calc(var(--size) / 2);
   --padding: var(--space-xs);
   --inner: calc(var(--size) - var(--padding));
-  
+
   width: 100%;
   min-height: var(--size);
-  //background-color: rgba(255, 0, 0, 0.162);
+}
+
+.slider::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  background-color: var(--foreground-20);
+  border-radius: var(--radius);
 }
 
 .slider .SliderInput {
@@ -58,10 +66,11 @@ const slider = ref(50)
   height: calc(var(--size) / 1);
   width: 100%;
   //background: var(--background-20);
-  border-radius: var(--radius);
+  //border-radius: var(--radius);
 }
 
-.slider:has(input:focus) .track {
+/* .slider:has(input:focus) .track {
   outline: var(--border-focus);
-}
+  border-radius: 50px;
+} */
 </style>
