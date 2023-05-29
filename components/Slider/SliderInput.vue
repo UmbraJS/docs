@@ -13,6 +13,7 @@ const value = defineModel<number>()
 <style lang="scss">
 /* The slider itself */
 input.SliderInput {
+  cursor: pointer;
   --tumbSize: var(--size, 25px);
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;

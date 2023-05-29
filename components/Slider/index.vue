@@ -1,75 +1,67 @@
 <script setup>
-const slider = ref(50)
+// const { min = 0, max = 100 } = defineProps<{
+//   min: number,
+//   max: number
+// }>()
 
-const percentage = computed(() => {
-  return `${slider.value}%`
-})
+const slider = ref(50)
 </script>
 
 <template>
   <div class="slider">
-    <p>{{ slider }}</p>
     <SliderInput
       v-model="slider"
-      min="0" 
-      max="100" 
+      :min="0" 
+      :max="100"
     />
     <div class="track">
-      <div class="range">
-        <div class="thumb" />
-      </div>
+      <SliderRange :percentage="slider">
+        <SliderThumb :offset="percentage" />
+      </SliderRange>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.slider .track {
+.slider {
+  cursor: pointer;
+  position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
 
+  --size: var(--block, 25px);
+  --trackSize: calc(var(--size) / 2);
+  --padding: var(--space-xs);
+  --inner: calc(var(--size) - var(--padding));
+  
+  width: 100%;
+  min-height: var(--size);
+  //background-color: rgba(255, 0, 0, 0.162);
+}
+
+.slider .SliderInput {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  opacity: 0;
+}
+
+.slider .track {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+
   //padding: 0px calc(var(--padding) / 2);
-  height: var(--size);
-  background: var(--background-20);
+  height: calc(var(--size) / 1);
+  width: 100%;
+  //background: var(--background-20);
   border-radius: var(--radius);
 }
 
 .slider:has(input:focus) .track {
   outline: var(--border-focus);
-}
-
-.slider .track .range {
-  --offset: calc(var(--size) - v-bind(percentage));
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  background: var(--foreground-20);
-  width: calc(v-bind(percentage));
-  //min-width: var(--size);
-  height: 100%;
-  border-radius: var(--radius);
-  //border-top-left-radius: var(--radius);
-  //border-bottom-left-radius: var(--radius);
-}
-
-.slider .track .thumb {
-  --offset: calc(var(--size) - v-bind(percentage));
-  //opacity: 0.4;
-  height: 100%;
-  aspect-ratio: 1/1;
-  background: var(--foreground);
-  transform: translateX(calc(var(--size) - v-bind(percentage)));
-  cursor: pointer;
-
-  border-radius: var(--radius);
-  //border-top-right-radius: var(--radius);
-  //border-bottom-right-radius: var(--radius);
-}
-
-.slider {
-  --size: var(--block, 25px);
-  --padding: var(--space-xs);
-  --inner: calc(var(--size) - var(--padding));
-  width: 100%;
-  min-height: var(--size);
 }
 </style>
