@@ -5,6 +5,9 @@ myriad({
   foreground: "#dcffda",
   background: "#0e0110",
   accents: ["#ffb958"],
+  custom: {
+    link: '#0000ff',
+  },
 }).attach()
 </script>
 

@@ -15,7 +15,7 @@ function handleChange(color, name) {
 
 <template>
   <div class="theme">
-    <div class="controls" v-if="false">
+    <div class="controls" v-if="true">
       <Slider />
     </div>
 

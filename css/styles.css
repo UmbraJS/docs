@@ -7,3 +7,17 @@
   --space-l: calc(var(--space) * 3);
   --space-xl: calc(var(--space) * 4);
 }
+
+html {
+  --border-style: solid;
+  --border-size: 3px;
+  --border-color: var(--foreground, black);
+  --border: 
+    var(--border-style, solid) 
+    var(--border-size, 3px) 
+    var(--border-color);
+
+  --border-focus: solid 
+    var(--border-size, 3px) 
+    var(--link, blue);
+}
