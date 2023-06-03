@@ -7,18 +7,23 @@ export const useTheme = defineStore('theme', () => {
     accents: ["#ffb958"],
   }).colors.origin)
 
-  const settings: MyriadSettings = {
+  const settings = ref<MyriadSettings>({
     readability: 2,
-  }
+  })
 
   function setScheme(theme: MyriadInput) {
     scheme.value = myriad({
       ...scheme.value,
       ...theme
-    }, settings).attach().colors.origin;
+    }, settings.value).attach().colors.origin;
   }
 
-  return { scheme, setScheme }
+  function setThemeSettings(s: MyriadSettings) {
+    settings.value = s;
+    scheme.value = myriad(scheme.value, settings.value).attach().colors.origin;
+  }
+
+  return { scheme, setScheme, settings, setThemeSettings }
 })
 
 if (import.meta.hot) {

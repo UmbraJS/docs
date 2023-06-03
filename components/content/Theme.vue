@@ -12,25 +12,18 @@ function handleChange(color, name) {
   })
 }
 
-const readability = ref(0)
-
-// const readability = computed({
-//   get: () => theme.scheme.readability,
-//   set: (value) => theme.setScheme({readability: value})
-// })
+//const readability = ref(0)
+const readability = computed({
+  get: () => theme.settings.readability,
+  set: (value) => theme.setThemeSettings({readability: value})
+})
 </script>
 
 <template>
   <div class="theme">
-    <div class="controls" v-if="true">
-      <h1>Readability</h1>
-      <Slider v-model="readability">
-        <!-- <SliderInput
-          v-model="value"
-          :min="0" 
-          :max="100"
-        /> -->
-      </Slider>
+    <div class="controls">
+      <h1>Minimum Readability: {{ theme.settings.readability }}</h1>
+      <Slider v-model="readability" />
     </div>
 
     <h1>Colors</h1>

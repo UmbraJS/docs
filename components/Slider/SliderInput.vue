@@ -1,16 +1,27 @@
 <script setup lang="ts">
-const value = defineModel<number>()
+defineProps(['modelValue'])
+const emit = defineEmits(['update:modelValue'])
+
+function onInput(e: any) {
+  emit('update:modelValue', e.target.value)
+}
 </script>
 
 <template>
   <input 
-    v-model="value"
     class="SliderInput"
     type="range"
+    :value="modelValue" 
+    @input="onInput"
   >
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+p {
+  position: absolute;
+  font-size: 12rem;
+}
+
 /* The slider itself */
 input.SliderInput {
   cursor: pointer;
@@ -21,13 +32,8 @@ input.SliderInput {
   height: var(--tumbSize);
   background: var(--foreground-20);
   outline: none;
-  opacity: 1;
   border-radius: var(--radius);
-}
-
-/* Mouse-over effects */
-input.SliderInput:hover {
-  opacity: 1; /* Fully shown on mouse-over */
+  //opacity: 0.2;
 }
 
 input.SliderInput:focus {

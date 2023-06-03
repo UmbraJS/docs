@@ -1,23 +1,30 @@
 <script setup lang="ts">
-const value = defineModel<number>()
+defineProps(['modelValue'])
+const emit = defineEmits(['update:modelValue'])
+//const test = ref(0)
+
+function onInput(value: any) {
+  emit('update:modelValue', value)
+}
 </script>
 
 <template>
   <div class="slider">
     <SliderInput
-      v-model="value"
       :min="0" 
       :max="100"
+      :model-value="modelValue"
+      @update:model-value="newValue => onInput(newValue)"
     />
     <div class="track">
-      <SliderRange :percentage="value">
+      <SliderRange :percentage="modelValue">
         <SliderThumb />
       </SliderRange>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .slider {
   cursor: pointer;
   position: relative;
@@ -41,6 +48,7 @@ const value = defineModel<number>()
 .slider::after {
   content: "";
   position: absolute;
+  z-index: 0;
   width: 100%;
   height: var(--trackSize);
   background-color: var(--trackColor);
@@ -49,7 +57,7 @@ const value = defineModel<number>()
 
 .slider .SliderInput {
   position: absolute;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   opacity: 0;
 }
