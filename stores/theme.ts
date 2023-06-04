@@ -28,7 +28,16 @@ export const useTheme = defineStore('theme', () => {
     scheme.value = myriad(scheme.value, settings.value).attach().colors.origin;
   }
 
-  return { scheme, setScheme, settings, setThemeSettings }
+  function inverseScheme() {
+    console.log('inverse')
+    scheme.value = myriad(scheme.value, settings.value).inverse().attach().colors.origin;
+  }
+
+  function isDark() {
+    return myriad(scheme.value, settings.value).isDark();
+  }
+
+  return { scheme, setScheme, settings, setThemeSettings, inverseScheme, isDark }
 })
 
 if (import.meta.hot) {

@@ -45,6 +45,14 @@ function assessReadability(readability) {
 
 <template>
   <div class="theme">
+    <div class="toggle">
+      <h2>Theme is: {{ theme.isDark() ? "dark" : "light" }}</h2>
+      <Toggle 
+        :value="theme.isDark()"
+        @change="() => theme.inverseScheme()"
+      />
+    </div>
+
     <div class="controls">
       <h1>
         Minimum Readability: {{ theme.settings.readability }} 
@@ -92,6 +100,17 @@ function assessReadability(readability) {
   display: flex;
   flex-direction: column;
   gap: var(--space);
+
+  h1 {
+    line-height: 1.2;
+  }
+}
+
+.theme .toggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-s);
 }
 
 .theme {

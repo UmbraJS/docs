@@ -51,11 +51,18 @@
   padding: var(--space-xl);
   background: var(--background-10);
   margin-bottom: var(--space-xl);
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
+
 }
 
 .range {
   display: grid;
-  overflow: hidden;
+  p {
+    white-space: nowrap;
+  }
 }
 
 .range .background {

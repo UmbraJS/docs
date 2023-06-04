@@ -12,7 +12,7 @@ const percentage = computed(() => {
 </script>
 
 <template>
-  <div class="slider">
+  <div class="range-slider">
     <SliderInput
       :min="min" 
       :max="max"
@@ -28,7 +28,7 @@ const percentage = computed(() => {
 </template>
 
 <style lang="scss">
-.slider {
+.range-slider {
   cursor: pointer;
   position: relative;
   display: flex;
@@ -48,7 +48,7 @@ const percentage = computed(() => {
   min-height: var(--size);
 }
 
-.slider::after {
+.range-slider::after {
   content: "";
   position: absolute;
   z-index: 0;
@@ -58,14 +58,14 @@ const percentage = computed(() => {
   border-radius: var(--radius);
 }
 
-.slider .SliderInput {
+.range-slider .SliderInput {
   position: absolute;
   z-index: 10;
   width: 100%;
   opacity: 0;
 }
 
-.slider .track {
+.range-slider .track {
   position: relative;
   display: flex;
   align-items: center;

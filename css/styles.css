@@ -21,3 +21,7 @@ html {
     var(--border-size, 3px) 
     var(--link, blue);
 }
+
+h1 {
+  line-height: 1.2;
+}
