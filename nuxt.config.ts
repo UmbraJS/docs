@@ -1,3 +1,5 @@
+import vue from '@vitejs/plugin-vue'
+
 export default defineNuxtConfig({
   extends: '@nuxt-themes/docus',
   modules: ['@nuxt/content', "@nuxt/devtools", "@pinia/nuxt"],
@@ -7,4 +9,11 @@ export default defineNuxtConfig({
   pinia: {
     autoImports: ['defineStore', 'acceptHMRUpdate'],
   },
+  vite: {
+    vue: {
+      script: {
+         propsDestructure: true
+      }
+    }
+  }
 })
