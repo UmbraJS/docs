@@ -5,10 +5,15 @@ export const useTheme = defineStore('theme', () => {
     foreground: "#dcffda",
     background: "#0e0110",
     accents: ["#ffb958"],
+    custom: {
+      link: '#0000ff',
+      warning: '#ff0000',
+      success: '#00ff00',
+    },
   }).colors.origin)
 
   const settings = ref<MyriadSettings>({
-    readability: 2,
+    readability: 4,
   })
 
   function setScheme(theme: MyriadInput) {

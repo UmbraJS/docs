@@ -17,13 +17,46 @@ const readability = computed({
   get: () => theme.settings.readability,
   set: (value) => theme.setThemeSettings({readability: value})
 })
+
+function assessReadability(readability) {
+  if (readability >= 0 && readability <= 3) {
+    return {
+      color: 'color: var(--warning)',
+      text: 'bad'
+    };
+  } else if (readability >= 4 && readability <= 11) {
+    return {
+      color: 'color: var(--success)',
+      text: 'good'
+    };
+  } else if (readability >= 12 && readability <= 16) {
+    return {
+      color: 'color: var(--success)',
+      text: 'excellent'
+    };
+  } else {
+    return {
+      color: 'color: var(--warning)',
+      text: 'insane'
+    };
+  }
+} 
 </script>
 
 <template>
   <div class="theme">
     <div class="controls">
-      <h1>Minimum Readability: {{ theme.settings.readability }}</h1>
-      <Slider v-model="readability" />
+      <h1>
+        Minimum Readability: {{ theme.settings.readability }} 
+        <span :style="assessReadability(theme.settings.readability).color">
+          {{ assessReadability(theme.settings.readability).text }}
+        </span>
+      </h1>
+      <Slider 
+        v-model="readability"
+        min="2"
+        max="20" 
+      />
     </div>
 
     <h1>Colors</h1>

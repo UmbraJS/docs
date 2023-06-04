@@ -33,7 +33,6 @@ input.SliderInput {
   background: var(--foreground-20);
   outline: none;
   border-radius: var(--radius);
-  //opacity: 0.2;
 }
 
 input.SliderInput:focus {

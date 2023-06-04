@@ -1,23 +1,26 @@
 <script setup lang="ts">
-defineProps(['modelValue'])
+const props = defineProps(['modelValue', 'min', 'max'])
 const emit = defineEmits(['update:modelValue'])
-//const test = ref(0)
 
 function onInput(value: any) {
   emit('update:modelValue', value)
 }
+
+const percentage = computed(() => {
+  return ((props.modelValue - props.min) / (props.max - props.min)) * 100
+})
 </script>
 
 <template>
   <div class="slider">
     <SliderInput
-      :min="0" 
-      :max="100"
+      :min="min" 
+      :max="max"
       :model-value="modelValue"
       @update:model-value="newValue => onInput(newValue)"
     />
     <div class="track">
-      <SliderRange :percentage="modelValue">
+      <SliderRange :percentage="percentage">
         <SliderThumb />
       </SliderRange>
     </div>
@@ -64,15 +67,11 @@ function onInput(value: any) {
 
 .slider .track {
   position: relative;
-  //overflow: hidden;
   display: flex;
   align-items: center;
   pointer-events: none;
 
-  //padding: 0px calc(var(--padding) / 2);
   height: calc(var(--size) / 1);
   width: 100%;
-  //background: var(--background-20);
-  //border-radius: var(--radius);
 }
 </style>
