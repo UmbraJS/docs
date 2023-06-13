@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { myriad } from "@myriadjs/core";
-import "./css/styles.css"
 myriad({
   foreground: "#dcffda",
   background: "#0e0110",
@@ -17,7 +16,9 @@ myriad({
   </Layout>
 </template>
 
-<style>
+<style lang="scss">
+@import "./css";
+
 html {
   --elements-backdrop-background: var(--background) !important;
   --docus-header-title-color-static: var(--background-10) !important;

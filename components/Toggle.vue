@@ -40,7 +40,6 @@ button.toggle {
   background: var(--foreground-20);
   border-radius: var(--radius);
 
-  width: min-content;
   height: var(--block, 40px);
 }
 

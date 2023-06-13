@@ -1,43 +1,103 @@
-import { myriad, MyriadInput, MyriadSettings } from "@myriadjs/core";
+import { inverse, myriad, MyriadInput, MyriadSettings } from "@myriadjs/core";
 
-export const useTheme = defineStore('theme', () => {
-  const scheme = ref(myriad({
+interface Variant {
+  settings: MyriadSettings
+  scheme: MyriadInput
+}
+
+interface Theme {
+  name: string
+  dark: Variant
+  light: Variant
+}
+
+const defaultCustom = {
+  link: '#0000ff',
+  warning: '#ff0000',
+  success: '#00ff00'
+}
+
+const defaultSettings: MyriadSettings = {
+  readability: 2,
+}
+
+const darkVariant: Variant = {
+  settings: defaultSettings,
+  scheme: {
     foreground: "#dcffda",
     background: "#0e0110",
     accents: ["#ffb958"],
-    custom: {
-      link: '#0000ff',
-      warning: '#ff0000',
-      success: '#00ff00',
-    },
-  }).colors.origin)
+    custom: defaultCustom
+  },
+}
 
-  const settings = ref<MyriadSettings>({
-    readability: 4,
-  })
+const lightVariant: Variant = {
+  settings: defaultSettings,
+  scheme: {
+    foreground: "#0e0110",
+    background: "#dcffda",
+    accents: ["#ffb958"],
+    custom: defaultCustom,
+    inverse: darkVariant
+  },
+}
 
-  function setScheme(theme: MyriadInput) {
-    scheme.value = myriad({
-      ...scheme.value,
-      ...theme
-    }, settings.value).attach().colors.origin;
+const myriadTheme: Theme = {
+  name: 'myriad',
+  dark: darkVariant,
+  light: lightVariant,
+}
+
+const starfishTheme: Theme = {
+  name: 'starfish',
+  dark: darkVariant,
+  light: lightVariant,
+}
+
+const themes = [
+  myriadTheme,
+  starfishTheme
+]
+
+export const useTheme = defineStore('theme', () => {
+  const isDark = ref(false)
+  const theme = shallowRef<Theme>(myriadTheme)
+
+  function setScheme(newScheme: MyriadInput) {
+    const combinedScheme = { ...scheme.value, ...newScheme };
+    theme.value = combinedScheme;
+    const m = myriad(combinedScheme, settings.value)
+    isDark.value = m.isDark()
+    return m
   }
 
-  function setThemeSettings(s: MyriadSettings) {
-    settings.value = s;
-    scheme.value = myriad(scheme.value, settings.value).attach().colors.origin;
+  function setThemeSettings(newsettings: MyriadSettings) {
+    const combinedSettings = { ...settings.value, ...newsettings };
+    settings.value = combinedSettings;
+    const m = myriad(scheme.value, combinedSettings)
+    isDark.value = m.isDark()
+    return m
   }
 
-  function inverseScheme() {
-    console.log('inverse')
-    scheme.value = myriad(scheme.value, settings.value).inverse().attach().colors.origin;
+  function toggleThemeVariant() {
+    //get index of current theme
+    
   }
 
-  function isDark() {
-    return myriad(scheme.value, settings.value).isDark();
+  function inverse() {
+    const m = myriad(scheme.value, settings.value).inverse()
+    return setScheme(m.colors.origin)
   }
 
-  return { scheme, setScheme, settings, setThemeSettings, inverseScheme, isDark }
+  return {
+    scheme,
+    setScheme,
+    setThemeSettings,
+    settings,
+    isDark,
+    inverse,
+    themes
+  }
 })
 
 if (import.meta.hot) {
