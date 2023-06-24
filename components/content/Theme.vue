@@ -5,21 +5,21 @@ import "@myriadjs/dye/dist/style.css"
 
 const theme = useTheme()
 
-function changeForeground(color: any, name: string) {
+function changeForeground(color: any) {
   const hexColor = color.value.toHexString() as string
-  theme.setScheme({
-    background: hexColor
-  }).attach()
-}
-
-function changeBackground(color: any, name: string) {
-  const hexColor = color.value.toHexString()
   theme.setScheme({
     foreground: hexColor
   }).attach()
 }
 
-function changeAccent(color: any, name: string) {
+function changeBackground(color: any) {
+  const hexColor = color.value.toHexString()
+  theme.setScheme({
+    background: hexColor
+  }).attach()
+}
+
+function changeAccent(color: any) {
   const hexColor = color.value.toHexString()
   theme.setScheme({
     accents: [hexColor]
@@ -58,7 +58,6 @@ function assessReadability(readability: number) {
 
 <template>
   <div class="theme">
-
     <p>lol: {{ readability }}</p>
 
     <div class="toggle">
@@ -69,7 +68,7 @@ function assessReadability(readability: number) {
       />
     </div>
 
-    <!-- <div class="controls">
+    <div class="controls">
       <h1>
         Minimum Readability: {{ readability }} 
         <span :style="assessReadability(readability).color">
@@ -87,7 +86,7 @@ function assessReadability(readability: number) {
     <div class="picker">
       <DyePicker
         :default="theme.theme.scheme.background || '#090233'"
-        @change="(color) => handleChange(color, 'background')"
+        @change="(color: any) => changeBackground(color)"
       />
       <p>Background</p>
     </div>
@@ -95,7 +94,7 @@ function assessReadability(readability: number) {
     <div class="picker">
       <DyePicker
         :default="theme.theme.scheme.foreground || '#090233'"
-        @change="(color) => handleChange(color, 'foreground')"
+        @change="(color: any) => changeForeground(color)"
       />
       <p>Foreground</p>
     </div>
@@ -103,10 +102,10 @@ function assessReadability(readability: number) {
     <div class="picker">
       <DyePicker
         :default="theme.theme.scheme.accents?.[0] || '#090233'"
-        @change="(color) => handleChange(color, 'accents')"
+        @change="(color: any) => changeAccent(color)"
       />
       <p>Accent</p>
-    </div> -->
+    </div>
   </div>
 </template>
 
