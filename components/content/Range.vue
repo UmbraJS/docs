@@ -3,40 +3,43 @@
 
 <template>
   <div class="wrapper">
-    <div class="range">
-      <div class="background">
-        <div class="square" style="background: var(--background)" />
-        <p>- background</p>
-        <div class="square" style="background: var(--background-10)" />
-        <p>- background-10</p>
-        <div class="square" style="background: var(--background-20)" />
-        <p>- background-20</p>
+    <h1>Range</h1>
+    <div class="range-wrapper">
+      <div class="range">
+        <div class="background">
+          <div class="square" style="background: var(--background)" />
+          <p>- background</p>
+          <div class="square" style="background: var(--background-10)" />
+          <p>- background-10</p>
+          <div class="square" style="background: var(--background-20)" />
+          <p>- background-20</p>
+        </div>
+        <div class="foreground">
+          <div class="square" style="background: var(--foreground-20)" />
+          <p>- foreground-20</p>
+          <div class="square" style="background: var(--foreground-10)" />
+          <p>- foreground-10</p>
+          <div class="square" style="background: var(--foreground)" />
+          <p>- foreground</p>
+        </div>
       </div>
-      <div class="foreground">
-        <div class="square" style="background: var(--foreground-20)" />
-        <p>- foreground-20</p>
-        <div class="square" style="background: var(--foreground-10)" />
-        <p>- foreground-10</p>
-        <div class="square" style="background: var(--foreground)" />
-        <p>- foreground</p>
-      </div>
-    </div>
-    <div class="range">
-      <div class="background">
-        <div class="square" style="background: var(--background)" />
-        <p></p>
-        <div class="square" style="background: var(--background-10)" />
-        <p></p>
-        <div class="square" style="background: var(--background-20)" />
-        <p></p>
-      </div>
-      <div class="accents">
-        <div class="square" style="background: var(--accent-20)" />
-        <p>- accent-20</p>
-        <div class="square" style="background: var(--accent-10)" />
-        <p>- accent-10</p>
-        <div class="square" style="background: var(--accent)" />
-        <p>- accent</p>
+      <div class="range">
+        <div class="background">
+          <div class="square" style="background: var(--background)" />
+          <p></p>
+          <div class="square" style="background: var(--background-10)" />
+          <p></p>
+          <div class="square" style="background: var(--background-20)" />
+          <p></p>
+        </div>
+        <div class="accents">
+          <div class="square" style="background: var(--accent-20)" />
+          <p>- accent-20</p>
+          <div class="square" style="background: var(--accent-10)" />
+          <p>- accent-10</p>
+          <div class="square" style="background: var(--accent)" />
+          <p>- accent</p>
+        </div>
       </div>
     </div>
   </div>
@@ -44,14 +47,16 @@
 
 <style scoped lang="scss">
 .wrapper {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-xl);
   border-radius: var(--radius);
   padding: var(--space-xl);
   background: var(--background-10);
   margin-bottom: var(--space-xl);
+}
 
+.range-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
   @media screen and (max-width: 800px) {
     flex-direction: column;
   }

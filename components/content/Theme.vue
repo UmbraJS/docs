@@ -58,10 +58,8 @@ function assessReadability(readability: number) {
 
 <template>
   <div class="theme">
-    <p>lol: {{ readability }}</p>
-
     <div class="toggle">
-      <h2>Theme is: {{ theme.isDark ? "dark" : "light" }}</h2>
+      <p>Theme is: {{ theme.isDark ? "dark" : "light" }}</p>
       <Toggle 
         :value="theme.isDark"
         @change="() => theme.inverse().attach()"
@@ -148,5 +146,9 @@ function assessReadability(readability: number) {
     overflow: hidden;
     height: 300px;
   }
+}
+
+.theme .picker p {
+  font-weight: bold;
 }
 </style>
