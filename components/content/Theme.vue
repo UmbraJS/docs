@@ -1,25 +1,37 @@
-<script setup>
+<script setup lang="ts">
+// @ts-ignore
 import { DyePicker } from '@myriadjs/dye';
 import "@myriadjs/dye/dist/style.css"
 
 const theme = useTheme()
-const myriad = theme.useMyriad
 
+function changeForeground(color: any, name: string) {
+  const hexColor = color.value.toHexString() as string
+  theme.setScheme({
+    background: hexColor
+  }).attach()
+}
 
-function handleChange(color, name) {
+function changeBackground(color: any, name: string) {
   const hexColor = color.value.toHexString()
-  theme.setScheme({[name]: name === "accents"
-    ? [hexColor]
-    : hexColor
+  theme.setScheme({
+    foreground: hexColor
+  }).attach()
+}
+
+function changeAccent(color: any, name: string) {
+  const hexColor = color.value.toHexString()
+  theme.setScheme({
+    accents: [hexColor]
   }).attach()
 }
 
 const readability = computed({
-  get: () => theme.settings.readability,
+  get: () => theme.theme.settings.readability || 0,
   set: (value) => theme.setThemeSettings({readability: value}).attach()
 })
 
-function assessReadability(readability) {
+function assessReadability(readability: number) {
   if (readability >= 0 && readability <= 3) {
     return {
       color: 'color: var(--warning)',
@@ -47,17 +59,17 @@ function assessReadability(readability) {
 <template>
   <div class="theme">
 
-    <p>lol: {{ myriad.settings.readability }}</p>
+    <p>lol: {{ readability }}</p>
 
     <div class="toggle">
-      <h2>Theme is: {{ myriad.computed.isDark() ? "dark" : "light" }}</h2>
+      <h2>Theme is: {{ theme.isDark ? "dark" : "light" }}</h2>
       <Toggle 
-        :value="myriad.computed.isDark()"
-        @change="() => myriad.computed.inverse().attach()"
+        :value="theme.isDark"
+        @change="() => theme.inverse().attach()"
       />
     </div>
 
-    <div class="controls">
+    <!-- <div class="controls">
       <h1>
         Minimum Readability: {{ readability }} 
         <span :style="assessReadability(readability).color">
@@ -71,10 +83,10 @@ function assessReadability(readability) {
       />
     </div>
 
-    <!-- <h1>Colors</h1>
+    <h1>Colors</h1>
     <div class="picker">
       <DyePicker
-        :default="myriad.computed.colors.background.color"
+        :default="theme.theme.scheme.background || '#090233'"
         @change="(color) => handleChange(color, 'background')"
       />
       <p>Background</p>
@@ -82,7 +94,7 @@ function assessReadability(readability) {
 
     <div class="picker">
       <DyePicker
-        :default="myriad.computed.colors.foreground.color"
+        :default="theme.theme.scheme.foreground || '#090233'"
         @change="(color) => handleChange(color, 'foreground')"
       />
       <p>Foreground</p>
@@ -90,7 +102,7 @@ function assessReadability(readability) {
 
     <div class="picker">
       <DyePicker
-        :default="myriad.computed.colors.accents[0].color"
+        :default="theme.theme.scheme.accents?.[0] || '#090233'"
         @change="(color) => handleChange(color, 'accents')"
       />
       <p>Accent</p>

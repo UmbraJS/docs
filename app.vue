@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { myriad } from "@myriadjs/core";
 myriad({
-  foreground: "#dcffda",
-  background: "#0e0110",
-  accents: ["#ffb958"],
+  foreground: "#00008b",
+  background: "#ffffff",
+  accents: ["#ff9400"],
   custom: {
     link: '#0000ff',
   },
+}, {
+  readability: 4,
 }).attach()
 </script>
 
