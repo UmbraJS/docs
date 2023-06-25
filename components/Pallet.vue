@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { myriad, MyriadScheme } from "@myriadjs/core";
-const { active, setScheme } = useTheme()
 
 const props = defineProps<{
   theme: {
@@ -17,8 +16,6 @@ const palletRef = ref<HTMLElement | null>(null)
 onMounted(() => {
   myriad(props.theme.scheme, props.theme.settings).attach(palletRef.value!)
 })
-
-const isActive = computed(() => active === props.theme.name)
 </script>
 
 <template>

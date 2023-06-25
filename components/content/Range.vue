@@ -1,52 +1,54 @@
 <script setup lang="ts">
+const myriad = useTheme();
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="range-container">
     <h1>Range</h1>
+    <p>
+      <span> All shapes exist only at the mercy of this color range. </span>
+      A simple relationship between two color choices. 
+      The contrast between them defines a potental range of auto generated 
+      colors which make up the appropriate color space of the 
+      theme with very few inputs.
+    </p>
+
+    {{ myriad }}
     <div class="range-wrapper">
       <div class="range">
         <div class="background">
-          <div class="square" style="background: var(--background)" />
-          <p>- background</p>
-          <div class="square" style="background: var(--background-10)" />
-          <p>- background-10</p>
-          <div class="square" style="background: var(--background-20)" />
-          <p>- background-20</p>
+          <ColorBox color="background" />
+          <ColorBox color="background-10" />
+          <ColorBox color="background-20" />
         </div>
         <div class="foreground">
-          <div class="square" style="background: var(--foreground-20)" />
-          <p>- foreground-20</p>
-          <div class="square" style="background: var(--foreground-10)" />
-          <p>- foreground-10</p>
-          <div class="square" style="background: var(--foreground)" />
-          <p>- foreground</p>
+          <ColorBox color="foreground-20" />
+          <ColorBox color="foreground-10" />
+          <ColorBox color="foreground" />
         </div>
       </div>
       <div class="range">
         <div class="background">
-          <div class="square" style="background: var(--background)" />
-          <p></p>
-          <div class="square" style="background: var(--background-10)" />
-          <p></p>
-          <div class="square" style="background: var(--background-20)" />
-          <p></p>
+          <ColorBox color="background" />
+          <ColorBox color="background-10" />
+          <ColorBox color="background-20" />
         </div>
         <div class="accents">
-          <div class="square" style="background: var(--accent-20)" />
-          <p>- accent-20</p>
-          <div class="square" style="background: var(--accent-10)" />
-          <p>- accent-10</p>
-          <div class="square" style="background: var(--accent)" />
-          <p>- accent</p>
+          <ColorBox color="accent-20" />
+          <ColorBox color="accent-10" />
+          <ColorBox color="accent" />
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.wrapper {
+<style lang="scss">
+.range-container {
+  display: flex;
+  gap: var(--space-s);
+  flex-direction: column;
+
   border-radius: var(--radius);
   padding: var(--space-xl);
   background: var(--background-10);
@@ -60,13 +62,13 @@
   @media screen and (max-width: 800px) {
     flex-direction: column;
   }
-
 }
 
 .range {
   display: grid;
   p {
     white-space: nowrap;
+    word-spacing: var(--space-xs);
   }
 }
 
@@ -100,13 +102,5 @@
 .range .accents .square:nth-last-of-type(1) {
   border-bottom-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
-}
-
-.range .square {
-  width: 30px;
-  height: 30px;
-  background-color: var(--accent);
-  display: flex;
-  justify-content: center;
 }
 </style>

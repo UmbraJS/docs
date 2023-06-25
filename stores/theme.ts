@@ -4,7 +4,7 @@ import { inverse, myriad, MyriadScheme, MyriadInput, MyriadSettings } from "@myr
 const defaultTheme = {
   name: "default",
   scheme: {
-    foreground: "#00008b",
+    foreground: "#000000",
     background: "#ffffff",
     accents: ["#ff9400"],
     custom: {
@@ -64,9 +64,7 @@ export const useTheme = defineStore('theme', () => {
       ...theme.value,
       settings: { ... theme.value.settings, ...newsettings }
     }
-
-    console.log("hit 2")
-
+    
     theme.value = newTheme
     const m = myriad(newTheme.scheme, newTheme.settings)
     isDark.value = m.isDark()
@@ -75,7 +73,6 @@ export const useTheme = defineStore('theme', () => {
 
   function inverse() {
     const m = myriad(theme.value.scheme, theme.value.settings).inverse()
-    console.log("hit 3", m.colors.input)
     return setScheme(m.colors.input.scheme || {})
   }
 
