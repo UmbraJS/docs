@@ -22,7 +22,7 @@
 @import "./css";
 
 body {
-  background: var(--background-20);
+  background: var(--background-10);
   color: var(--foreground);
 }
 
