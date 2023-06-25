@@ -1,10 +1,23 @@
 <script setup lang="ts">
 const myriad = useTheme();
+
+function shadeArray(color: "foreground" | "background") {
+  const obj = myriad.generated[color]
+  if(!obj) return []
+  return Object.keys(obj.shade);
+}
+
+function accentShadeArray() {
+  const obj = myriad.generated.accents
+  if(!obj) return []
+  return Object.keys(obj[0].shade);
+}
 </script>
 
 <template>
   <div class="range-container">
     <h1>Range</h1>
+
     <p>
       <span> All shapes exist only at the mercy of this color range. </span>
       A simple relationship between two color choices. 
@@ -17,25 +30,37 @@ const myriad = useTheme();
       <div class="range">
         <div class="background">
           <ColorBox color="background" />
-          <ColorBox color="background-10" />
-          <ColorBox color="background-20" />
+          <ColorBox 
+            v-for="shade in shadeArray('background')" 
+            :key="shade" 
+            :color="'background-' + shade" 
+          />
         </div>
         <div class="foreground">
-          <ColorBox color="foreground-20" />
-          <ColorBox color="foreground-10" />
           <ColorBox color="foreground" />
+          <ColorBox 
+            v-for="shade in shadeArray('foreground')" 
+            :key="shade" 
+            :color="'foreground-' + shade"
+          />
         </div>
       </div>
       <div class="range">
         <div class="background">
           <ColorBox color="background" />
-          <ColorBox color="background-10" />
-          <ColorBox color="background-20" />
+          <ColorBox 
+            v-for="shade in shadeArray('background')" 
+            :key="shade" 
+            :color="'background-' + shade"
+          />
         </div>
         <div class="accents">
-          <ColorBox color="accent-20" />
-          <ColorBox color="accent-10" />
           <ColorBox color="accent" />
+          <ColorBox 
+            v-for="shade in accentShadeArray()" 
+            :key="shade" 
+            :color="'accent-' + shade"
+          />
         </div>
       </div>
     </div>
@@ -78,12 +103,17 @@ const myriad = useTheme();
 .range .background,
 .range .foreground,
 .range .accents {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   column-gap: var(--space-s);
-  grid-template-columns: auto 1fr;
   p {
     color: var(--foreground-20) !important;
   }
+}
+
+.range .foreground,
+.range .accents {
+  flex-direction: column-reverse;
 }
 
 .range .background p:nth-of-type(1),
@@ -92,13 +122,13 @@ const myriad = useTheme();
   color: var(--foreground) !important;
 }
 
-.range .background .square:nth-of-type(1) {
+.range .background .colorbox:nth-of-type(1) .square {
   border-top-right-radius: var(--radius);
   border-top-left-radius: var(--radius);
 }
 
-.range .foreground .square:nth-last-of-type(1),
-.range .accents .square:nth-last-of-type(1) {
+.range .foreground .colorbox:nth-of-type(1) .square,
+.range .accents .colorbox:nth-of-type(1) .square {
   border-bottom-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
 }

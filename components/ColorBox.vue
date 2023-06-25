@@ -15,11 +15,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="squareRef" class="square" :style="{background: `var(--${color})`}" />
-  <p>- {{ color }}</p>
+  <div class="colorbox">
+    <div ref="squareRef" class="square" :style="{background: `var(--${color})`}" />
+    <p>- {{ color }}</p>
+  </div>
 </template>
 
 <style scoped lang="scss">
+.colorbox {
+  display: flex;
+  gap: var(--space-s);
+}
+
 .range .square {
   width: 30px;
   height: 30px;
