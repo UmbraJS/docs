@@ -22,7 +22,7 @@ const capTrick = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.slider .track .range {
+.range-slider .track .range {
   position: relative;
   z-index: 1;
   display: flex;
@@ -42,7 +42,7 @@ const capTrick = computed(() => {
   border-bottom-left-radius: var(--radius);
 }
 
-.slider .track .range::after {
+.range-slider .track .range::after {
   content: "";
   position: absolute;
   z-index: 0;

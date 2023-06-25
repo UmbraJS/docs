@@ -26,7 +26,7 @@
   transition: outline 0.05s;
 }
 
-.slider .track .thumb {
+.range-slider .track .thumb {
   position: relative;
   z-index: 1;
   display: flex;
@@ -39,7 +39,7 @@
   transform: translateX(calc(var(--tumbSize) - 50%));
 }
 
-.slider .track .thumb::after {
+.range-slider .track .thumb::after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -49,11 +49,11 @@
   background-color: var(--foreground-10);
 }
 
-.slider:has(input:focus) .track .thumb .ball {
+.range-slider:has(input:focus) .track .thumb .ball {
   outline: solid 5px var(--accent-20);
 }
 
-.slider:has(input:active) .track .thumb .ball {
+.range-slider:has(input:active) .track .thumb .ball {
   outline: solid 10px var(--accent-20);
 }
 </style>

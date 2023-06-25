@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { myriad } from "@myriadjs/core";
-import "./css/styles.css"
-myriad({
-  foreground: "#dcffda",
-  background: "#0e0110",
-  accents: ["#ffb958"],
-  custom: {
-    link: '#0000ff',
-  },
-}).attach()
+// import { myriad } from "@myriadjs/core";
+// myriad({
+//   foreground: "#00008b",
+//   background: "#ffffff",
+//   accents: ["#ff9400"],
+//   custom: {
+//     link: '#0000ff',
+//   },
+// }, {
+//   readability: 4,
+// }).attach()
 </script>
 
 <template>
@@ -17,7 +18,25 @@ myriad({
   </Layout>
 </template>
 
-<style>
+<style lang="scss">
+@import "./css";
+
+body {
+  background: var(--background-10);
+  color: var(--foreground);
+}
+
+.container {
+  display: flex;
+  gap: var(--space-s);
+  flex-direction: column;
+
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  background: var(--background);
+  margin-bottom: var(--space-xl);
+}
+
 html {
   --elements-backdrop-background: var(--background) !important;
   --docus-header-title-color-static: var(--background-10) !important;

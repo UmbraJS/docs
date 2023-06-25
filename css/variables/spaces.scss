@@ -8,7 +8,7 @@
   --space-xl: calc(var(--space) * 4);
 }
 
-html {
+:root {
   --border-style: solid;
   --border-size: 3px;
   --border-color: var(--foreground, black);

@@ -6,7 +6,6 @@ const title = ref<HTMLElement | null>(null)
 const caption = ref<HTMLElement | null>(null)
 const content = ref<HTMLElement | null>(null)
 const span = ref<HTMLElement | null>(null)
-
 </script>
 
 <template>

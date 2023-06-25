@@ -1,24 +1,37 @@
-<script setup>
+<script setup lang="ts">
+// @ts-ignore
 import { DyePicker } from '@myriadjs/dye';
 import "@myriadjs/dye/dist/style.css"
 
 const theme = useTheme()
 
-function handleChange(color, name) {
-  const hexColor = color.value.toHexString()
-  theme.setScheme({[name]: name === "accents"
-    ? [hexColor]
-    : hexColor
-  })
+function changeForeground(color: any) {
+  const hexColor = color.value.toHexString() as string
+  theme.setScheme({
+    foreground: hexColor
+  }).attach()
 }
 
-//const readability = ref(0)
+function changeBackground(color: any) {
+  const hexColor = color.value.toHexString()
+  theme.setScheme({
+    background: hexColor
+  }).attach()
+}
+
+function changeAccent(color: any) {
+  const hexColor = color.value.toHexString()
+  theme.setScheme({
+    accents: [hexColor]
+  }).attach()
+}
+
 const readability = computed({
-  get: () => theme.settings.readability,
-  set: (value) => theme.setThemeSettings({readability: value})
+  get: () => theme.generated.input.settings.readability || 0,
+  set: (value) => theme.setThemeSettings({readability: value}).attach()
 })
 
-function assessReadability(readability) {
+function assessReadability(readability: number) {
   if (readability >= 0 && readability <= 3) {
     return {
       color: 'color: var(--warning)',
@@ -45,11 +58,19 @@ function assessReadability(readability) {
 
 <template>
   <div class="theme">
+    <div class="toggle">
+      <p>Theme is: {{ theme.isDark ? "dark" : "light" }}</p>
+      <Toggle 
+        :value="theme.isDark"
+        @change="() => theme.inverse().attach()"
+      />
+    </div>
+
     <div class="controls">
       <h1>
-        Minimum Readability: {{ theme.settings.readability }} 
-        <span :style="assessReadability(theme.settings.readability).color">
-          {{ assessReadability(theme.settings.readability).text }}
+        Minimum Readability: {{ readability }} 
+        <span :style="assessReadability(readability).color">
+          {{ assessReadability(readability).text }}
         </span>
       </h1>
       <Slider 
@@ -62,28 +83,27 @@ function assessReadability(readability) {
     <h1>Colors</h1>
     <div class="picker">
       <DyePicker
-        :default="theme.scheme.background"
-        @change="(color) => handleChange(color, 'background')"
+        :default="theme.generated.input.scheme.background || '#090233'"
+        @change="(color: any) => changeBackground(color)"
       />
       <p>Background</p>
     </div>
 
     <div class="picker">
       <DyePicker
-        :default="theme.scheme.foreground"
-        @change="(color) => handleChange(color, 'foreground')"
+        :default="theme.generated.input.scheme.foreground || '#090233'"
+        @change="(color: any) => changeForeground(color)"
       />
       <p>Foreground</p>
     </div>
 
     <div class="picker">
       <DyePicker
-        :default="theme.scheme.accents[0]"
-        @change="(color) => handleChange(color, 'accents')"
+        :default="theme.generated.input.scheme.accents?.[0] || '#090233'"
+        @change="(color: any) => changeAccent(color)"
       />
       <p>Accent</p>
     </div>
-
   </div>
 </template>
 
@@ -92,6 +112,17 @@ function assessReadability(readability) {
   display: flex;
   flex-direction: column;
   gap: var(--space);
+
+  h1 {
+    line-height: 1.2;
+  }
+}
+
+.theme .toggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-s);
 }
 
 .theme {
@@ -115,5 +146,9 @@ function assessReadability(readability) {
     overflow: hidden;
     height: 300px;
   }
+}
+
+.theme .picker p {
+  font-weight: bold;
 }
 </style>

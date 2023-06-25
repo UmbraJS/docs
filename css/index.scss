@@ -1,0 +1,20 @@
+//Variables
+@import "./variables/queries";
+@import "./variables/spaces";
+
+
+//Foundations
+@import "./foundations/reset";
+@import "./foundations/type";
+
+
+//Cube
+@import "./cube/block";
+@import "./cube/composition";
+@import "./cube/util";
+
+
+html {
+  background: var(--background-20);
+  color: var(--foreground);
+}
