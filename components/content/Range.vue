@@ -70,7 +70,7 @@ function accentShadeArray() {
 <style lang="scss">
 .range-container {
   display: flex;
-  gap: var(--space-s);
+  gap: var(--space);
   flex-direction: column;
 
   border-radius: var(--radius);
