@@ -13,7 +13,6 @@ const myriad = useTheme();
       theme with very few inputs.
     </p>
 
-    {{ myriad }}
     <div class="range-wrapper">
       <div class="range">
         <div class="background">

@@ -27,7 +27,7 @@ function changeAccent(color: any) {
 }
 
 const readability = computed({
-  get: () => theme.theme.settings.readability || 0,
+  get: () => theme.generated.input.settings.readability || 0,
   set: (value) => theme.setThemeSettings({readability: value}).attach()
 })
 
@@ -83,7 +83,7 @@ function assessReadability(readability: number) {
     <h1>Colors</h1>
     <div class="picker">
       <DyePicker
-        :default="theme.theme.scheme.background || '#090233'"
+        :default="theme.generated.input.scheme.background || '#090233'"
         @change="(color: any) => changeBackground(color)"
       />
       <p>Background</p>
@@ -91,7 +91,7 @@ function assessReadability(readability: number) {
 
     <div class="picker">
       <DyePicker
-        :default="theme.theme.scheme.foreground || '#090233'"
+        :default="theme.generated.input.scheme.foreground || '#090233'"
         @change="(color: any) => changeForeground(color)"
       />
       <p>Foreground</p>
@@ -99,7 +99,7 @@ function assessReadability(readability: number) {
 
     <div class="picker">
       <DyePicker
-        :default="theme.theme.scheme.accents?.[0] || '#090233'"
+        :default="theme.generated.input.scheme.accents?.[0] || '#090233'"
         @change="(color: any) => changeAccent(color)"
       />
       <p>Accent</p>
