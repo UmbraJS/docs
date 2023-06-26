@@ -12,6 +12,17 @@ function accentShadeArray() {
   if(!obj) return []
   return Object.keys(obj[0].shade);
 }
+
+interface ElementObj {
+  element: HTMLElement,
+  id: string
+}
+
+const elements = ref<ElementObj[]>([])
+
+onMounted(() => {
+  console.log('rex', elements.value)
+})
 </script>
 
 <template>
@@ -19,29 +30,49 @@ function accentShadeArray() {
     <h1>Range</h1>
 
     <p>
-      <span> All shapes exist only at the mercy of this color range. </span>
+      12 shades split in 3 groups <span> All shapes exist only at the mercy of this color range. </span>
       A simple relationship between two color choices. 
       The contrast between them defines a potental range of auto generated 
       colors which make up the appropriate color space of the 
-      theme with very few inputs.
+      theme with very few inputs. Background, foreground, accent.
     </p>
 
     <div class="range-wrapper">
       <div class="range">
         <div class="background">
-          <ColorBox color="background" />
+          <ColorBox 
+            color="background" 
+            @mounted="el => {if(el) elements.push({
+              element: el,
+              id: 'bg'
+            })}"
+          />
           <ColorBox 
             v-for="shade in shadeArray('background')" 
             :key="shade" 
-            :color="'background-' + shade" 
+            :color="'background-' + shade"
+            @mounted="el => {if(el) elements.push({
+              element: el,
+              id: 'bg-' + shade
+            })}"
           />
         </div>
         <div class="foreground">
-          <ColorBox color="foreground" />
+          <ColorBox 
+            color="foreground" 
+            @mounted="el => {if(el) elements.push({
+              element: el,
+              id: 'fg'
+            })}"
+          />
           <ColorBox 
             v-for="shade in shadeArray('foreground')" 
             :key="shade" 
             :color="'foreground-' + shade"
+            @mounted="el => {if(el) elements.push({
+              element: el,
+              id: 'fg-' + shade
+            })}"
           />
         </div>
       </div>
@@ -55,11 +86,21 @@ function accentShadeArray() {
           />
         </div>
         <div class="accents">
-          <ColorBox color="accent" />
+          <ColorBox 
+            color="accent" 
+            @mounted="el => {if(el) elements.push({
+              element: el,
+              id: 'ac'
+            })}"
+          />
           <ColorBox 
             v-for="shade in accentShadeArray()" 
             :key="shade" 
             :color="'accent-' + shade"
+            @mounted="el => {if(el) elements.push({
+              element: el,
+              id: 'ac-' + shade
+            })}"
           />
         </div>
       </div>

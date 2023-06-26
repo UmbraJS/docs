@@ -114,6 +114,10 @@
   p {
     animation: foreground var(--sett);
   }
+
+  p span {
+    opacity: 0;
+  }
 }
 
 @keyframes foreground {

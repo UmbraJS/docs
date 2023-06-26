@@ -1,4 +1,4 @@
-import { inverse, myriad, MyriadScheme, MyriadGenerated, MyriadSettings } from "@myriadjs/core";
+import { myriad, MyriadScheme, MyriadGenerated, MyriadSettings } from "@myriadjs/core";
 
 
 const defaultTheme = {
@@ -6,7 +6,7 @@ const defaultTheme = {
   scheme: {
     foreground: "#000000",
     background: "#ffffff",
-    accents: ["#ff9400"],
+    accents: ["#006585"],
     custom: {
       link: '#0000ff',
     },
