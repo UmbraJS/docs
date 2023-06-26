@@ -18,3 +18,25 @@ html {
   background: var(--background-20);
   color: var(--foreground);
 }
+
+
+:root {
+  --background: #ffffff;
+  --background-10: #e6e6e6;
+  --background-20: #cccccc;
+  --background-30: #808080;
+  --foreground: #000000;
+  --foreground-10: #1a1a1a;
+  --foreground-20: #333333;
+  --foreground-30: #808080;
+  --accent: #006585;
+  --accent-contrast: #ffffff;
+  --accent-10: #1a7491;
+  --accent-20: #33849d;
+  --accent-30: #80b2c2;
+  --link: #0000ff;
+  --link-contrast: #ffffff;
+  --link-10: #0000ff;
+  --link-20: #0000ff;
+  --link-30: #0000ff;
+}

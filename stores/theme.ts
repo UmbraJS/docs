@@ -16,8 +16,8 @@ const defaultTheme = {
   }
 }
 
-const starfishTheme = {
-  name: "starfish",
+const cherryberryTheme = {
+  name: "cherryberry",
   scheme: {
     foreground: "#430541",
     background: "#dedeff",
@@ -49,9 +49,9 @@ const nightshadeTheme = {
 const cyberpunkTheme = {
   name: "cyberpunk",
   scheme: {
-    foreground: "#773300",
-    background: "#191916",
-    accents: ["#aa00ff"],
+    foreground: "#ff2222",
+    background: "#110022",
+    accents: ["#ffffff"],
     custom: {
       link: '#0000ff',
     },
@@ -99,7 +99,7 @@ export const useTheme = defineStore('theme', () => {
     inverse,
     themes: [
       defaultTheme,
-      starfishTheme,
+      cherryberryTheme,
       cyberpunkTheme,
       nightshadeTheme
     ]
