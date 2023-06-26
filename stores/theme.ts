@@ -1,8 +1,22 @@
 import { myriad, MyriadScheme, MyriadGenerated, MyriadSettings } from "@myriadjs/core";
 
 
+const settings = {
+  readability: 4,
+  foreground: {
+    shade: [17, 27, 40],
+  },
+  background: {
+    shade: [4, 8, 17],
+  },
+  accents: {
+    shade: [17, 27, 40],
+  },
+}
+
 const defaultTheme = {
   name: "default",
+  settings,
   scheme: {
     foreground: "#000000",
     background: "#ffffff",
@@ -10,14 +24,12 @@ const defaultTheme = {
     custom: {
       link: '#0000ff',
     },
-  },
-  settings: {
-    readability: 4,
   }
 }
 
 const cherryberryTheme = {
   name: "cherryberry",
+  settings,
   scheme: {
     foreground: "#430541",
     background: "#dedeff",
@@ -25,14 +37,12 @@ const cherryberryTheme = {
     custom: {
       link: '#0000ff',
     },
-  },
-  settings: {
-    readability: 4,
   }
 }
 
 const nightshadeTheme = {
   name: "nightshade",
+  settings,
   scheme: {
     foreground: "#8273fd",
     background: "#030303",
@@ -41,13 +51,11 @@ const nightshadeTheme = {
       link: '#0000ff',
     },
   },
-  settings: {
-    readability: 4,
-  }
 }
 
 const cyberpunkTheme = {
   name: "cyberpunk",
+  settings,
   scheme: {
     foreground: "#ff2222",
     background: "#110022",
@@ -56,9 +64,6 @@ const cyberpunkTheme = {
       link: '#0000ff',
     },
   },
-  settings: {
-    readability: 4,
-  }
 }
 
 const serializeNonPOJOs = (value: object | null) => {
