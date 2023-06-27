@@ -8,6 +8,9 @@ const settings = {
   background: {
     shade: [4, 8, 17],
   },
+  accents: {
+    shade: [35, 45, 55, 65, 75, 85],
+  }
 }
 
 const defaultTheme = {
@@ -41,6 +44,9 @@ const cherryberryTheme = {
     background: {
       shade: [10, 17, 25],
     },
+    accents: {
+      shade: [35, 45, 55, 65, 75, 85],
+    }
   }
 }
 
@@ -62,6 +68,9 @@ const nightshadeTheme = {
     background: {
       shade: [10, 17, 25],
     },
+    accents: {
+      shade: [35, 45, 55, 65, 75, 85],
+    }
   }
 }
 
@@ -82,6 +91,9 @@ const cyberpunkTheme = {
     },
     background: {
       shade: [10, 17, 25],
+    },
+    accents: {
+      shade: [35, 45, 55, 65, 75, 85],
     }
   }
 }
