@@ -12,7 +12,7 @@ const theme = useTheme()
         :key="t.name"
         :theme="t"
         :class="{active: theme.active === t.name}"
-        @click="() => theme.setScheme(t.scheme, t.name).attach()"
+        @click="() => theme.setScheme(t, t.name).attach()"
       />
     </div>
   </div>

@@ -8,21 +8,27 @@ const theme = useTheme()
 function changeForeground(color: any) {
   const hexColor = color.value.toHexString() as string
   theme.setScheme({
-    foreground: hexColor
+    scheme: {
+      foreground: hexColor
+    }
   }).attach()
 }
 
 function changeBackground(color: any) {
   const hexColor = color.value.toHexString()
   theme.setScheme({
-    background: hexColor
+    scheme: {
+      background: hexColor
+    }
   }).attach()
 }
 
 function changeAccent(color: any) {
   const hexColor = color.value.toHexString()
   theme.setScheme({
-    accents: [hexColor]
+    scheme: {
+      accents: [hexColor]
+    }
   }).attach()
 }
 
