@@ -1,16 +1,12 @@
-import { myriad, MyriadScheme, MyriadInput, MyriadGenerated, MyriadSettings } from "@myriadjs/core";
-
+import { myriad, MyriadScheme, MyriadGenerated, MyriadSettings } from "@myriadjs/core";
 
 const settings = {
   readability: 4,
   foreground: {
-    shade: [17, 27, 40],
+    shade: [30, 60, 70],
   },
   background: {
     shade: [4, 8, 17],
-  },
-  accents: {
-    shade: [17, 27, 40],
   },
 }
 
@@ -40,13 +36,10 @@ const cherryberryTheme = {
   settings: {
     readability: 4,
     foreground: {
-      shade: [17, 27, 40],
+      shade: [30, 55, 65],
     },
     background: {
-      shade: [12, 27, 40],
-    },
-    accents: {
-      shade: [17, 27, 40],
+      shade: [10, 17, 25],
     },
   }
 }
@@ -64,13 +57,10 @@ const nightshadeTheme = {
   settings: {
     readability: 4,
     foreground: {
-      shade: [12, 20, 35],
+      shade: [30, 55, 65],
     },
     background: {
-      shade: [12, 24, 40],
-    },
-    accents: {
-      shade: [12, 24, 40],
+      shade: [10, 17, 25],
     },
   }
 }
@@ -80,7 +70,7 @@ const cyberpunkTheme = {
   scheme: {
     foreground: "#ffe0de",
     background: "#110022",
-    accents: ["#ff0303"],
+    accents: ["#cc2222"],
     custom: {
       link: '#0000ff',
     },
@@ -88,14 +78,11 @@ const cyberpunkTheme = {
   settings: {
     readability: 4,
     foreground: {
-      shade: [12, 20, 35],
+      shade: [30, 55, 65],
     },
     background: {
-      shade: [12, 24, 40],
-    },
-    accents: {
-      shade: [12, 24, 40],
-    },
+      shade: [10, 17, 25],
+    }
   }
 }
 

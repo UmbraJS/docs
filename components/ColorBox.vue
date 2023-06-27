@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   color: string
 }>()
 
@@ -12,11 +12,25 @@ const squareRef = ref<HTMLElement | null>(null)
 onMounted(() => {
   emit("mounted", squareRef.value)
 })
+
+const subdue = computed(() => {
+  return props.color.includes("-")
+})
+
+const colorToken = computed(() => {
+  return props.color === "contrast" 
+    ? "accent-contrast" 
+    : props.color
+})
 </script>
 
 <template>
-  <div class="colorbox">
-    <div ref="squareRef" class="square" :style="{background: `var(--${color})`}" />
+  <div class="colorbox" :class="{subdue}">
+    <div 
+      ref="squareRef" 
+      class="square"
+      :style="{background: `var(--${colorToken})`}" 
+    />
     <p>- {{ color }}</p>
   </div>
 </template>
@@ -33,5 +47,17 @@ onMounted(() => {
   background-color: var(--accent);
   display: flex;
   justify-content: center;
+}
+
+.colorbox p {
+  text-transform: capitalize;
+}
+
+.colorbox.subdue p {
+  color: var(--foreground-10) !important;
+}
+
+.colorbox:not(.subdue) p {
+  font-weight: normal;
 }
 </style>

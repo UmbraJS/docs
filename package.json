@@ -17,7 +17,7 @@
     "nuxt": "^3.6.0"
   },
   "dependencies": {
-    "@myriadjs/core": "^0.0.9",
+    "@myriadjs/core": "^0.0.92",
     "@myriadjs/dye": "^0.0.6996",
     "@pinia/nuxt": "^0.4.11",
     "pinia": "^2.1.3",

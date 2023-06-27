@@ -133,7 +133,7 @@ const span = ref<HTMLElement | null>(null)
   right: calc(var(--space-s) + 30px + var(--space-s));
   width: 60px;
   height: 30px;
-  background-color: var(--accent-30);
+  background-color: var(--accent-60);
   border-radius: var(--radius);
   border: solid 1px var(--accent-10);
 }
