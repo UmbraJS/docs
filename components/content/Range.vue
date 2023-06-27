@@ -19,6 +19,7 @@ interface ElementObj {
 }
 
 const containerRef = ref<HTMLElement | null>(null)
+const conatinerRect = computed(() => containerRef.value?.getBoundingClientRect())
 
 const elements = ref<ElementObj[]>([])
 const selected = ref<string[]>(['bg', 'bg-10'])
@@ -63,6 +64,35 @@ function updateHighlight() {
     height
   }
 }
+
+interface AliasedColors {
+  colors: string[],
+  name: string
+}
+
+const aliasedColors = ref<AliasedColors[]>([
+  {
+    colors: ['bg', 'bg-10', 'co', 'ac-60'],
+    name: 'background'
+  },
+  {
+    colors: ['bg-20', 'bg-30', 'ac-50', 'ac-40'],
+    name: 'panel background'
+  },
+  {
+    colors: ['bg-30', 'fg-30', 'fg-20', 'ac-20', 'ac-30', 'ac-40'],
+    name: 'borders'
+  },
+  {
+    colors: ['ac-30', 'ac-20', 'ac-10', 'ac'],
+    name: 'solid backgrounds'
+  },
+  {
+    colors: ['fg-20', 'fg-10', 'fg', 'ac-20', 'ac-10', 'ac'],
+    name: 'text & icons'
+  }
+])
+
 </script>
 
 <template>
@@ -79,76 +109,30 @@ function updateHighlight() {
 
     <div class="someclass">
       <ul class="aliases">
-        <li @mouseover="selected = ['bg', 'bg-10']">background</li>
-        <li @mouseover="selected = ['bg-20', 'bg-30']">panel background</li>
-        <li @mouseover="selected = ['bg-30', 'fg-30', 'fg-20']">borders</li>
-        <li @mouseover="selected = ['ac-30', 'ac-20', 'ac-10', 'ac']">solid backgrounds</li>
-        <li @mouseover="selected = ['fg-20', 'fg-10', 'fg']">text & icons</li>
+        <li 
+          v-for="aliased in aliasedColors"
+          :key="aliased.name"
+          @mouseover="selected = aliased.colors"
+        >
+          {{ aliased.name }}
+        </li>
       </ul>
 
       <div class="range-wrapper">
-        <div class="highlight" />
-        <div class="range">
-          <h3>Base</h3>
-          <div class="background">
-            <ColorBox
-              color="background"
-              @mounted="el => {if(el) elements.push({
-                element: el,
-                id: 'bg'
-              })}"
-            />
-            <ColorBox
-              v-for="shade in shadeArray('background')"
-              :key="shade"
-              :color="'background-' + shade"
-              @mounted="el => {if(el) elements.push({
-                element: el,
-                id: 'bg-' + shade
-              })}"
-            />
-          </div>
-          <div class="foreground">
-            <ColorBox
-              color="foreground"
-              @mounted="el => {if(el) elements.push({
-                element: el,
-                id: 'fg'
-              })}"
-            />
-            <ColorBox
-              v-for="shade in shadeArray('foreground')"
-              :key="shade"
-              :color="'foreground-' + shade"
-              @mounted="el => {if(el) elements.push({
-                element: el,
-                id: 'fg-' + shade
-              })}"
-            />
-          </div>
-        </div>
-        <div class="range">
-          <h3>Brand</h3>
-          <div class="accents">
-            <ColorBox
-              color="accent"
-              @mounted="el => {if(el) elements.push({
-                element: el,
-                id: 'ac'
-              })}"
-            />
-            <ColorBox
-              v-for="shade in accentShadeArray()"
-              :key="shade"
-              :color="'accent-' + shade"
-              @mounted="el => {if(el) elements.push({
-                element: el,
-                id: 'ac-' + shade
-              })}"
-            />
-            <ColorBox color="contrast" />
-          </div>
-        </div>
+        <BaseRange
+          :selected="selected"
+          :highlight-offset="{
+            x: conatinerRect?.x || 0,
+            y: conatinerRect?.y || 0
+          }"
+        />
+        <AccentRange
+          :selected="selected"
+          :highlight-offset="{
+            x: conatinerRect?.x || 0,
+            y: conatinerRect?.y || 0
+          }"
+        />
       </div>
     </div>
   </div>
