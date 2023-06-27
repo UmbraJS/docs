@@ -37,7 +37,7 @@ const percentage = computed(() => {
 
   --size: var(--block, 25px);
   --trackSize: calc(var(--size) / 4);
-  --trackColor: var(--accent-20);
+  --trackColor: var(--accent-50);
   --rangeColor: var(--accent-10);
   --thumbColor: var(--accent);
 
