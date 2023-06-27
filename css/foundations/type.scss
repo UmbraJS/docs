@@ -17,6 +17,7 @@ html {
 h1, h2, h3, p {
   font-weight: 300;
   line-height: 1.2;
+  letter-spacing: 0.5px;
   margin: 0px 0px var(--space-intimate);
   &:not(.display) {
     max-width: clamp(0px, 60ch, 600px);

@@ -89,17 +89,18 @@ function updateHighlight() {
       <div class="range-wrapper">
         <div class="highlight" />
         <div class="range">
+          <h3>Base</h3>
           <div class="background">
-            <ColorBox 
-              color="background" 
+            <ColorBox
+              color="background"
               @mounted="el => {if(el) elements.push({
                 element: el,
                 id: 'bg'
               })}"
             />
-            <ColorBox 
-              v-for="shade in shadeArray('background')" 
-              :key="shade" 
+            <ColorBox
+              v-for="shade in shadeArray('background')"
+              :key="shade"
               :color="'background-' + shade"
               @mounted="el => {if(el) elements.push({
                 element: el,
@@ -108,16 +109,16 @@ function updateHighlight() {
             />
           </div>
           <div class="foreground">
-            <ColorBox 
-              color="foreground" 
+            <ColorBox
+              color="foreground"
               @mounted="el => {if(el) elements.push({
                 element: el,
                 id: 'fg'
               })}"
             />
-            <ColorBox 
-              v-for="shade in shadeArray('foreground')" 
-              :key="shade" 
+            <ColorBox
+              v-for="shade in shadeArray('foreground')"
+              :key="shade"
               :color="'foreground-' + shade"
               @mounted="el => {if(el) elements.push({
                 element: el,
@@ -127,31 +128,25 @@ function updateHighlight() {
           </div>
         </div>
         <div class="range">
-          <div class="background">
-            <ColorBox color="background" />
-            <ColorBox 
-              v-for="shade in shadeArray('background')" 
-              :key="shade" 
-              :color="'background-' + shade"
-            />
-          </div>
+          <h3>Brand</h3>
           <div class="accents">
-            <ColorBox 
-              color="accent" 
+            <ColorBox
+              color="accent"
               @mounted="el => {if(el) elements.push({
                 element: el,
                 id: 'ac'
               })}"
             />
-            <ColorBox 
-              v-for="shade in accentShadeArray()" 
-              :key="shade" 
+            <ColorBox
+              v-for="shade in accentShadeArray()"
+              :key="shade"
               :color="'accent-' + shade"
               @mounted="el => {if(el) elements.push({
                 element: el,
                 id: 'ac-' + shade
               })}"
             />
+            <ColorBox color="contrast" />
           </div>
         </div>
       </div>
@@ -164,9 +159,21 @@ function updateHighlight() {
   font-weight: bold;
   cursor: pointer;
   background: var(--background);
-  padding: var(--space-xs) var(--space-s);
+  padding: var(--space-s) var(--space-s);
   border-radius: var(--radius);
+  transition: .1s;
 }
+
+.aliases li:hover {
+  background: var(--accent-50);
+  color: var(--accent);
+}
+
+.aliases li:active {
+  background: var(--accent-40);
+  color: var(--accent-contrast);
+}
+
 
 .aliases {
   display: flex;
@@ -225,6 +232,10 @@ function updateHighlight() {
     white-space: nowrap;
     word-spacing: var(--space-xs);
   }
+  h3 {
+    font-weight: bold;
+    margin-bottom: var(--space-s);
+  }
 }
 
 .range .background {
@@ -237,9 +248,6 @@ function updateHighlight() {
   display: flex;
   flex-direction: column;
   column-gap: var(--space-s);
-  p {
-    color: var(--foreground-20) !important;
-  }
 }
 
 .range .foreground,
@@ -247,13 +255,8 @@ function updateHighlight() {
   flex-direction: column-reverse;
 }
 
-.range .background p:nth-of-type(1),
-.range .foreground p:nth-last-of-type(1),
-.range .accents p:nth-last-of-type(1) {
-  color: var(--foreground) !important;
-}
-
-.range .background .colorbox:nth-of-type(1) .square {
+.range .background .colorbox:nth-of-type(1) .square,
+.range .accents .colorbox:nth-last-of-type(1) .square  {
   border-top-right-radius: var(--radius);
   border-top-left-radius: var(--radius);
 }
