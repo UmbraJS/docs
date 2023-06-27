@@ -18,15 +18,55 @@ interface ElementObj {
   id: string
 }
 
+const containerRef = ref<HTMLElement | null>(null)
+
 const elements = ref<ElementObj[]>([])
+const selected = ref<string[]>(['bg', 'bg-10'])
+
+const highlight = ref({
+  x: 200,
+  y: 100,
+  width: 0,
+  height: 0
+})
 
 onMounted(() => {
-  console.log('rex', elements.value)
+  updateHighlight()
 })
+
+watch(selected, () => {
+  updateHighlight()
+})
+
+function updateHighlight() {
+  const containerRect = containerRef.value?.getBoundingClientRect()
+
+  let x = 0
+  let y = 0
+  let width = 0
+  let height = 0
+  selected.value.forEach(id => {
+    const el = elements.value.find(el => el.id === id)
+    if(el) {
+      const rect = el.element.getBoundingClientRect()
+      x = x === 0 ? rect.x : Math.min(x, rect.x)
+      y = y === 0 ? rect.y : Math.min(y, rect.y)
+      width = rect.width
+      height += rect.height
+    }
+  })
+
+  highlight.value = {
+    x: x - containerRect!.x,
+    y: y - containerRect!.y,
+    width,
+    height
+  }
+}
 </script>
 
 <template>
-  <div class="range-container">
+  <div ref="containerRef" class="range-container">
     <h1>Range</h1>
 
     <p>
@@ -37,71 +77,82 @@ onMounted(() => {
       theme with very few inputs. Background, foreground, accent.
     </p>
 
-    <div class="range-wrapper">
-      <div class="range">
-        <div class="background">
-          <ColorBox 
-            color="background" 
-            @mounted="el => {if(el) elements.push({
-              element: el,
-              id: 'bg'
-            })}"
-          />
-          <ColorBox 
-            v-for="shade in shadeArray('background')" 
-            :key="shade" 
-            :color="'background-' + shade"
-            @mounted="el => {if(el) elements.push({
-              element: el,
-              id: 'bg-' + shade
-            })}"
-          />
+    <div class="someclass">
+      <ul class="aliases">
+        <li @mouseover="selected = ['bg', 'bg-10']">background</li>
+        <li @mouseover="selected = ['bg-20', 'bg-30']">panel background</li>
+        <li @mouseover="selected = ['bg-30', 'fg-30', 'fg-20']">borders</li>
+        <li @mouseover="selected = ['ac-30', 'ac-20', 'ac-10', 'ac']">solid backgrounds</li>
+        <li @mouseover="selected = ['fg-20', 'fg-10', 'fg']">text & icons</li>
+      </ul>
+
+      <div class="range-wrapper">
+        <div class="highlight" />
+        <div class="range">
+          <div class="background">
+            <ColorBox 
+              color="background" 
+              @mounted="el => {if(el) elements.push({
+                element: el,
+                id: 'bg'
+              })}"
+            />
+            <ColorBox 
+              v-for="shade in shadeArray('background')" 
+              :key="shade" 
+              :color="'background-' + shade"
+              @mounted="el => {if(el) elements.push({
+                element: el,
+                id: 'bg-' + shade
+              })}"
+            />
+          </div>
+          <div class="foreground">
+            <ColorBox 
+              color="foreground" 
+              @mounted="el => {if(el) elements.push({
+                element: el,
+                id: 'fg'
+              })}"
+            />
+            <ColorBox 
+              v-for="shade in shadeArray('foreground')" 
+              :key="shade" 
+              :color="'foreground-' + shade"
+              @mounted="el => {if(el) elements.push({
+                element: el,
+                id: 'fg-' + shade
+              })}"
+            />
+          </div>
         </div>
-        <div class="foreground">
-          <ColorBox 
-            color="foreground" 
-            @mounted="el => {if(el) elements.push({
-              element: el,
-              id: 'fg'
-            })}"
-          />
-          <ColorBox 
-            v-for="shade in shadeArray('foreground')" 
-            :key="shade" 
-            :color="'foreground-' + shade"
-            @mounted="el => {if(el) elements.push({
-              element: el,
-              id: 'fg-' + shade
-            })}"
-          />
-        </div>
-      </div>
-      <div class="range">
-        <div class="background">
-          <ColorBox color="background" />
-          <ColorBox 
-            v-for="shade in shadeArray('background')" 
-            :key="shade" 
-            :color="'background-' + shade"
-          />
-        </div>
-        <div class="accents">
-          <ColorBox 
-            color="accent" 
-            @mounted="el => {if(el) elements.push({
-              element: el,
-              id: 'ac'
-            })}"
-          />
-          <ColorBox 
-            v-for="shade in accentShadeArray()" 
-            :key="shade" 
-            :color="'accent-' + shade"
-            @mounted="el => {if(el) elements.push({
-              element: el,
-              id: 'ac-' + shade
-            })}"
-          />
+        <div class="range">
+          <div class="background">
+            <ColorBox color="background" />
+            <ColorBox 
+              v-for="shade in shadeArray('background')" 
+              :key="shade" 
+              :color="'background-' + shade"
+            />
+          </div>
+          <div class="accents">
+            <ColorBox 
+              color="accent" 
+              @mounted="el => {if(el) elements.push({
+                element: el,
+                id: 'ac'
+              })}"
+            />
+            <ColorBox 
+              v-for="shade in accentShadeArray()" 
+              :key="shade" 
+              :color="'accent-' + shade"
+              @mounted="el => {if(el) elements.push({
+                element: el,
+                id: 'ac-' + shade
+              })}"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -109,7 +160,46 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
+.aliases li {
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--background);
+  padding: var(--space-xs) var(--space-s);
+  border-radius: var(--radius);
+}
+
+.aliases {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.someclass {
+  display: grid;
+  gap: var(--space-xl);
+  grid-template-columns: 1fr 1fr;
+}
+
+.highlight {
+  position: absolute;
+  left: calc(v-bind('highlight.x') * 1px);
+  top: calc(v-bind('highlight.y') * 1px);
+
+  //background: var(--link-20);
+  min-width: 2px;
+  min-height: 2px;
+  height: calc(v-bind('highlight.height') * 1px);
+  width: calc(v-bind('highlight.width') * 1px);
+
+  border-radius: var(--radius);
+  //opacity: 0.3;
+  outline: solid 4px var(--link);
+
+  transition: .2s ease-in-out;
+}
+
 .range-container {
+  position: relative;
   display: flex;
   gap: var(--space);
   flex-direction: column;
