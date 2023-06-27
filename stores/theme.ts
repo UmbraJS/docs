@@ -1,4 +1,4 @@
-import { myriad, MyriadScheme, MyriadGenerated, MyriadSettings } from "@myriadjs/core";
+import { myriad, MyriadScheme, MyriadInput, MyriadGenerated, MyriadSettings } from "@myriadjs/core";
 
 
 const settings = {
@@ -29,41 +29,74 @@ const defaultTheme = {
 
 const cherryberryTheme = {
   name: "cherryberry",
-  settings,
   scheme: {
     foreground: "#430541",
-    background: "#dedeff",
+    background: "#f4f5fa",
     accents: ["#ff355e"],
     custom: {
       link: '#0000ff',
+    },
+  },
+  settings: {
+    readability: 4,
+    foreground: {
+      shade: [17, 27, 40],
+    },
+    background: {
+      shade: [12, 27, 40],
+    },
+    accents: {
+      shade: [17, 27, 40],
     },
   }
 }
 
 const nightshadeTheme = {
   name: "nightshade",
-  settings,
   scheme: {
-    foreground: "#8273fd",
+    foreground: "#b1d1fc",
     background: "#030303",
-    accents: ["#fdb915"],
+    accents: ["#000088"],
     custom: {
       link: '#0000ff',
     },
   },
+  settings: {
+    readability: 4,
+    foreground: {
+      shade: [12, 20, 35],
+    },
+    background: {
+      shade: [12, 24, 40],
+    },
+    accents: {
+      shade: [12, 24, 40],
+    },
+  }
 }
 
 const cyberpunkTheme = {
   name: "cyberpunk",
-  settings,
   scheme: {
-    foreground: "#ff2222",
+    foreground: "#ffe0de",
     background: "#110022",
-    accents: ["#ffffff"],
+    accents: ["#ff0303"],
     custom: {
       link: '#0000ff',
     },
   },
+  settings: {
+    readability: 4,
+    foreground: {
+      shade: [12, 20, 35],
+    },
+    background: {
+      shade: [12, 24, 40],
+    },
+    accents: {
+      shade: [12, 24, 40],
+    },
+  }
 }
 
 const serializeNonPOJOs = (value: object | null) => {
@@ -75,8 +108,11 @@ export const useTheme = defineStore('theme', () => {
   const active = shallowRef(defaultTheme.name)
   const generated = shallowRef<MyriadGenerated>(serializeNonPOJOs(myriad(defaultTheme.scheme, defaultTheme.settings).colors))
 
-  function setScheme(newScheme: MyriadScheme, name?: string) {
-    const m = myriad({ ...generated.value.input.scheme, ...newScheme }, generated.value.input.settings)
+  function setScheme(newTheme: {
+    scheme: MyriadScheme,
+    settings?: MyriadSettings
+  }, name?: string) {
+    const m = myriad({ ...generated.value.input.scheme, ...newTheme.scheme }, newTheme.settings ?  newTheme.settings : generated.value.input.settings)
     generated.value = serializeNonPOJOs(m.colors);
     isDark.value = m.isDark()
     active.value = name || 'custom'
@@ -92,7 +128,7 @@ export const useTheme = defineStore('theme', () => {
 
   function inverse() {
     const m = myriad(generated.value.input.scheme, generated.value.input.settings).inverse()
-    return setScheme(m.colors.input.scheme || {})
+    return setScheme(m.colors.input || {})
   }
 
   return {
