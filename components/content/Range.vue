@@ -19,7 +19,7 @@ interface ElementObj {
 }
 
 const containerRef = ref<HTMLElement | null>(null)
-const conatinerRect = computed(() => containerRef.value?.getBoundingClientRect())
+const conatinerRect = ref<DOMRect | undefined | null>(null)
 
 const elements = ref<ElementObj[]>([])
 const selected = ref<string[]>(['bg', 'bg-10'])
@@ -31,7 +31,12 @@ const highlight = ref({
   height: 0
 })
 
+function updateContainer() {
+  conatinerRect.value = containerRef.value?.getBoundingClientRect()
+}
+
 onMounted(() => {
+  updateContainer()
   updateHighlight()
 })
 
@@ -96,7 +101,11 @@ const aliasedColors = ref<AliasedColors[]>([
 </script>
 
 <template>
-  <div ref="containerRef" class="range-container">
+  <div 
+    ref="containerRef" 
+    class="range-container"
+    @mousemove="updateContainer"
+  >
     <h1>Range</h1>
 
     <p>
