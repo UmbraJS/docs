@@ -38,6 +38,11 @@ function updateContainer() {
 onMounted(() => {
   updateContainer()
   updateHighlight()
+  if(!document) return
+  document.addEventListener('resize', () => {
+    updateContainer()
+    //updateHighlight()
+  })
 })
 
 watch(selected, () => {
