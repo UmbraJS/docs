@@ -23,6 +23,7 @@ const conatinerRect = ref<DOMRect | undefined | null>(null)
 
 const elements = ref<ElementObj[]>([])
 const selected = ref<string[]>(['bg', 'bg-10'])
+const selectedID = ref<string>()
 
 const highlight = ref({
   x: 200,
@@ -41,7 +42,6 @@ onMounted(() => {
   if(!document) return
   document.addEventListener('resize', () => {
     updateContainer()
-    //updateHighlight()
   })
 })
 
@@ -82,27 +82,22 @@ interface AliasedColors {
 
 const aliasedColors = ref<AliasedColors[]>([
   {
-    colors: ['bg', 'bg-10', 'co', 'ac-60'],
+    colors: ['bg', 'bg-10', 'ac', 'ac-10'],
     name: 'background'
   },
   {
-    colors: ['bg-20', 'bg-30', 'ac-50', 'ac-40'],
-    name: 'panel background'
+    colors: ['bg-20', 'bg-30', 'ac-20', 'ac-30'],
+    name: 'panels'
   },
   {
     colors: ['bg-30', 'fg-30', 'fg-20', 'ac-20', 'ac-30', 'ac-40'],
     name: 'borders'
   },
   {
-    colors: ['ac-30', 'ac-20', 'ac-10', 'ac'],
-    name: 'solid backgrounds'
-  },
-  {
-    colors: ['fg-20', 'fg-10', 'fg', 'ac-20', 'ac-10', 'ac'],
+    colors: ['fg-20', 'fg-10', 'fg', 'ac-50', 'ac-60', 'co'],
     name: 'text & icons'
   }
 ])
-
 </script>
 
 <template>
@@ -121,12 +116,29 @@ const aliasedColors = ref<AliasedColors[]>([
       theme with very few inputs. Background, foreground, accent.
     </p>
 
+    <div class="illustration">
+      <!-- <div class="background" />
+      <div class="panels">
+        <div class="panel" />
+        <div class="panel" />
+      </div>
+      <div class="borders" />
+      <div class="text">
+        <p>Text</p>
+        <p>
+          theme with very few inputs. Background, foreground, accent.
+        </p>
+      </div> -->
+    </div>
     <div class="someclass">
       <ul class="aliases">
-        <li 
+        <li
           v-for="aliased in aliasedColors"
           :key="aliased.name"
-          @mouseover="selected = aliased.colors"
+          @mouseover="() => {
+            selectedID = aliased.name
+            selected = aliased.colors
+          }"
         >
           {{ aliased.name }}
         </li>
@@ -153,6 +165,70 @@ const aliasedColors = ref<AliasedColors[]>([
 </template>
 
 <style lang="scss">
+.illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: var(--background);
+  border-radius: var(--radius);
+  width: 56rem;
+  height: 56rem;
+  transition: .8s;
+}
+
+.illustration .background {
+  position: absolute;
+  background: var(--background);
+  border-radius: var(--radius);
+  width: 100%;
+  height: 100%;
+}
+
+.illustration .panels {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end ;
+  flex-direction: column;
+  gap: var(--space-xs);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.illustration .panels .panel {
+  background: var(--background-30);
+  border-radius: calc(var(--radius) / 2);
+  width: 70%;
+  height: 20%;
+}
+
+
+.illustration .borders {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: solid 2px var(--foreground-30);
+  border-radius: var(--radius);
+}
+
+
+.illustration .text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: var(--space);
+}
+
+.illustration .text p {
+  font-family: 'Flow Circular', cursive;
+}
+
+
+
 .aliases li {
   font-weight: bold;
   cursor: pointer;

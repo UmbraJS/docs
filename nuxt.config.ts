@@ -1,8 +1,9 @@
 import vue from '@vitejs/plugin-vue'
+import glsl from 'vite-plugin-glsl';
 
 export default defineNuxtConfig({
   extends: '@nuxt-themes/docus',
-  modules: ['@nuxt/content', "@nuxt/devtools", "@pinia/nuxt"],
+  modules: ['@nuxt/content', "@nuxt/devtools", "@pinia/nuxt", "@tresjs/nuxt"],
 
   imports: {
     dirs: ['./stores'],
@@ -17,7 +18,10 @@ export default defineNuxtConfig({
       script: {
          propsDestructure: true
       }
-    }
+    },
+    plugins: [
+      glsl()
+    ]
   },
 
   devtools: {
